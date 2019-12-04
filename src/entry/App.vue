@@ -1,23 +1,27 @@
 <!--
- * @Description
- * @Author ys1983/张睿博
- * @Date 2019-10-29 10:29:09
- * @LastEditors ys1983/张睿博
- * @LastEditTime 2019-11-07 10:42:15
+ * @Description: 
+ * @Author: lys1626/刘芹芹
+ * @Date: 2019-12-04 10:30:59
+ * @LastEditors: lys1626/刘芹芹
+ * @LastEditTime: 2019-12-04 17:29:41
  -->
 <template>
   <div class="app-wrap">
-    <div id="echarts"></div>
+    <div class="app-content">
+      <header></header>
+      <div class="app-middle-content"></div>
+      <div class="app-bottom-content"></div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "App"
 };
 </script>
 
-<style lang='less'>
+<style lang="less">
 html,
 body,
 #app {
@@ -25,14 +29,38 @@ body,
   height: 100%;
   overflow: hidden;
 }
+</style>
+
+<style lang="less" scoped>
+@headerHeight: 6%;
+@middleHeight: 74%;
+@bottomHeight: 20%;
 .app-wrap {
+  position: relative;
   width: 100%;
   height: 100%;
-}
-#echarts {
-  width: 700px;
-  height: 700px;
-  border: 1px solid red; /*no*/
-  margin: auto;
+  overflow: hidden;
+
+  .app-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    header {
+      width: 100%;
+      height: @headerHeight;
+      background: red;
+    }
+    .app-middle-content {
+      width: 100%;
+      height: @middleHeight;
+      background: blue;
+    }
+    .app-bottom-content {
+      width: 100%;
+      height: @bottomHeight;
+      background: yellow;
+    }
+  }
 }
 </style>
