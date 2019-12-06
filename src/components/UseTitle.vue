@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 10:33:29
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-05 19:09:49
+ * @LastEditTime: 2019-12-06 14:25:19
  -->
 <template>
   <div class="title-wrapper" :style="{height: height + 'px'}">
@@ -13,7 +13,7 @@
   </div>
 </template> 
 <script>
-import titleImg from '@/assets/imgs/twaver.png';
+import titleImg from '@/assets/imgs/title-icon.png';
 export default {
   name: 'UseTitle',
   props: {
