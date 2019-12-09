@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 10:33:29
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-06 14:25:19
+ * @LastEditTime: 2019-12-09 09:34:50
  -->
 <template>
   <div class="title-wrapper" :style="{height: height + 'px'}">
@@ -51,7 +51,7 @@ export default {
     display: inline-block;
     padding-left: 5px;
     color: #fff;
-    font-size: 0.8em;
+    font-size: 1em;
     vertical-align: middle;
   }
   .unit-text {

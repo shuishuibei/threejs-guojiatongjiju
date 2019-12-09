@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-06 15:02:14
+ * @LastEditTime: 2019-12-09 16:09:43
  -->
 <template>
   <div class="app-wrap">
@@ -14,19 +14,28 @@
           <!-- 已用资源统计 -->
           <div class="already-use use-count">
             <use-title title="已用资源统计" height="21" unit=""></use-title>
-            <div class="already-con">
-            </div>
+            <div class="already-con"></div>
           </div>
           <!-- 各租户拥有虚机数量Top5 -->
           <div class="host-top5 use-count">
-            <use-title title="各租户拥有虚机数量Top5" height="21" unit=""></use-title>
+            <use-title
+              title="各租户拥有虚机数量Top5"
+              height="21"
+              unit=""></use-title>
             <div class="host-top5-con">
-              <div class="host-top5-title">平台租户总量<span style="padding: 0px 15px;">{{tenantTotal}}</span>个</div>
+              <div class="host-top5-title">
+                平台租户总量<span style="padding: 0px 15px;">{{
+                  tenantTotal
+                }}</span>个
+              </div>
               <div class="host-top5-progress-bar">
-                <div class="progress-bar" v-for="(item,index) in hostTop5" :key="index">
+                <div
+                  class="progress-bar"
+                  v-for="(item, index) in hostTop5"
+                  :key="index">
                   <div class="progress-bar-text">
-                    <span class="progress-bar-title">{{item.title}}</span>
-                    <span class="progress-bar-ratio">{{item.value}}</span>
+                    <span class="progress-bar-title">{{ item.title }}</span>
+                    <span class="progress-bar-ratio">{{ item.value }}</span>
                   </div>
                   <div class="progress-bar-wrapper">
                     <div class="progress-bar-already" :style="item.sty"></div>
@@ -37,7 +46,9 @@
             </div>
           </div>
         </div>
-        <div class="content-middle"></div>
+        <div class="content-middle">
+          <topo-chart></topo-chart>
+        </div>
         <div class="content-right">
           <!-- cpu 历史使用量 -->
           <div class="cpu-use use-count">
@@ -56,7 +67,8 @@
               <usage-line-chart
                 flag-id="memory-use-con"
                 :series-data="CpuSeriesData"
-                :row-data="CpuRowData"></usage-line-chart>
+                :row-data="CpuRowData">
+              </usage-line-chart>
             </div>
           </div>
           <!-- 存储历史使用量 -->
@@ -72,8 +84,7 @@
         </div>
       </div>
       <div class="app-bottom-content">
-        <circle-process>
-        </circle-process>
+        <circle-process></circle-process>
       </div>
     </div>
   </div>
@@ -83,12 +94,15 @@
 import UseTitle from '@/components/UseTitle.vue';
 import UsageLineChart from '@/components/UsageLineChart.vue';
 import CircleProcess from '@/components/CircleProcess.vue';
+import TopoChart from '@/components/TopoChart.vue';
+
 export default {
   name: 'App',
   components: {
     'use-title': UseTitle,
     'usage-line-chart': UsageLineChart,
-    'circle-process': CircleProcess
+    'circle-process': CircleProcess,
+    'topo-chart': TopoChart
   },
   data() {
     return {
@@ -167,8 +181,8 @@ body,
 </style>
 
 <style lang="less" scoped>
-@headerHeight: 5.5%;
-@middleHeight: 74.5%;
+@headerHeight: 6.5%;
+@middleHeight: 73.5%;
 @bottomHeight: 20%;
 @useCount: 21px;
 // @font-face {
@@ -182,6 +196,8 @@ body,
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: url('../assets/imgs/index.jpg') center no-repeat;
+  background-size: 100% 100%;
 
   .app-content {
     position: relative;
@@ -197,12 +213,11 @@ body,
       height: @middleHeight;
       box-sizing: border-box;
       display: flex;
-      padding-left: 28px;
-      padding-right: 28px;
+      padding-left: 30px;
+      padding-right: 30px;
 
       .content-left {
         width: 19.5%;
-        background: black;
         display: flex;
         flex-direction: column;
         .use-count {
@@ -214,11 +229,10 @@ body,
           .host-top5-con {
             width: 100%;
             height: calc(~'100% - @{useCount}');
-            padding-top: 12%;
+            padding-top: 13%;
             box-sizing: border-box;
             .host-top5-title {
               width: 100%;
-              color: #fff;
               height: 5%;
             }
             .host-top5-progress-bar {
@@ -226,8 +240,7 @@ body,
               position: relative;
               display: flex;
               flex-direction: column;
-              height: 95%;
-              margin-top: -7%;
+              height: 88%;
               .progress-bar {
                 flex: 1;
                 width: 100%;
@@ -241,12 +254,10 @@ body,
                   .progress-bar-title {
                     position: absolute;
                     left: 0;
-                    color: #fff;
                   }
                   .progress-bar-ratio {
                     position: absolute;
                     right: 0;
-                    color: #24ddfc;
                     font-family: DS-Digital;
                     font-size: 0.87rem;
                   }
@@ -300,21 +311,19 @@ body,
           }
         }
         .already-use {
-          height: 31%;
+          height: 32%;
         }
         .host-top5 {
-          height: 69%;
+          height: 68%;
         }
       }
       .content-middle {
-        width: 61%;
-        background: #fff;
+        width: 58%;
       }
       .content-right {
-        background: black;
         display: flex;
         flex-direction: column;
-        width: 19.5%;
+        width: 22.5%;
         .use-count {
           flex: 1;
           width: 100%;
@@ -328,7 +337,6 @@ body,
     .app-bottom-content {
       width: 100%;
       height: @bottomHeight;
-      background: paleturquoise;
     }
   }
 }
