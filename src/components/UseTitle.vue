@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 10:33:29
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-09 09:34:50
+ * @LastEditTime: 2019-12-10 11:02:58
  -->
 <template>
   <div class="title-wrapper" :style="{height: height + 'px'}">
@@ -50,16 +50,18 @@ export default {
   .title-text {
     display: inline-block;
     padding-left: 5px;
+    font-family: 'MicrosoftYaHei';
     color: #fff;
-    font-size: 1em;
+    font-size: 1rem;
     vertical-align: middle;
   }
   .unit-text {
     float: right;
     color: #fff;
-    font-size: 0.8em;
+    font-size: 0.875rem;
     vertical-align: middle;
-    line-height: 1.7;
+    line-height: 1.8;
+    font-family: 'MicrosoftYaHei';
   }
 }
 </style>

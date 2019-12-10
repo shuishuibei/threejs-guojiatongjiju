@@ -3,10 +3,10 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 11:28:49
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-09 11:33:54
+ * @LastEditTime: 2019-12-10 13:56:03
  */
 
-String.prototype.colorRgba = function() {
+String.prototype.colorRgba = function(aph) {
   // 16进制颜色值的正则
   var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
   // 把颜色值变成小写
@@ -25,7 +25,13 @@ String.prototype.colorRgba = function() {
     for (var n = 1; n < 7; n += 2) {
       colorChange.push(parseInt("0x" + color.slice(n, n + 2)));
     }
-    return "RGB(" + colorChange.join(",") + ",0.2)";
+    if (aph) {
+      return "rgba(" + colorChange.join(",") + "," + aph + ")";
+    }
+
+    // } else {
+    //   return "rgb(" + colorChange.join(",") + ")";
+    // }
   } else {
     return color;
   }

@@ -3,16 +3,17 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-05 19:16:37
+ * @LastEditTime: 2019-12-10 14:03:07
  -->
 <template>
   <div></div>
 </template>
 <script>
 import _ from 'lodash';
-
+import colorChange from '@/assets/js/color-change.js';
 export default {
   name: 'UsageLineChart',
+  mixins: [colorChange],
   props: {
     seriesData: {
       type: [Object, Array],
@@ -25,6 +26,10 @@ export default {
     flagId: {
       type: String,
       required: true
+    },
+    lineColor: {
+      type: String,
+      default: '#01a2f6'
     }
   },
   data() {
@@ -62,7 +67,7 @@ export default {
             show: false,
             lineStyle: {
               color: '#fff',
-              fontSize: '0.41rem'
+              fontSize: '0.75rem'
             }
           },
           axisLabel: {
@@ -81,7 +86,8 @@ export default {
           axisLine: {
             show: false,
             lineStyle: {
-              color: '#fff'
+              color: '#fff',
+              fontSize: '0.75rem'
             }
           },
           axisLabel: {
@@ -91,7 +97,10 @@ export default {
             show: false
           },
           splitLine: {
-            show: false
+            show: true,
+            lineStyle: {
+              color: '#192e48'
+            }
           }
         },
         series: [
@@ -102,7 +111,7 @@ export default {
             symbol: 'emptyCircle',
             symbolSize: 8,
             itemStyle: {
-              borderColor: '#01a2f6',
+              borderColor: this.lineColor,
               borderWidth: 2
             },
             markPoint: {
@@ -125,15 +134,15 @@ export default {
                     },
                     {
                       offset: 0.4,
-                      color: 'rgba(1, 162, 246, 0.6)' // 100% 处的颜色
+                      color: this.lineColor.colorRgba(0.6) // 100% 处的颜色
                     },
                     {
                       offset: 0.6,
-                      color: 'rgba(1, 162, 246, 0.4)' // 100% 处的颜色
+                      color: this.lineColor.colorRgba(0.4) // 100% 处的颜色
                     },
                     {
                       offset: 0.8,
-                      color: 'rgba(1, 162, 246, 0.2)' // 100% 处的颜色
+                      color: this.lineColor.colorRgba(0.2) // 100% 处的颜色
                     }
                   ]
                 },
@@ -157,10 +166,15 @@ export default {
                     rich: {
                       a: {
                         color: '#fff',
-                        height: 15,
-                        width: 30,
-                        backgroundColor: 'blue',
-                        align: 'center'
+                        // height: 20,
+                        // width: 30,
+                        backgroundColor: this.lineColor.colorRgba(0.6),
+                        align: 'center',
+                        borderRadius: 3,
+                        // verticalAlign: 'middle',
+                        padding: [2, 10, 4, 10],
+                        fontFamily: 'Microsoft YaHei',
+                        fontSize: 12
                       }
                     }
                   }
@@ -178,10 +192,14 @@ export default {
                     rich: {
                       a: {
                         color: '#fff',
-                        height: 15,
-                        width: 30,
-                        backgroundColor: 'red',
-                        align: 'center'
+                        // height: 15,
+                        // width: 30,
+                        backgroundColor: this.lineColor.colorRgba(0.6),
+                        align: 'center',
+                        padding: [2, 10, 4, 10],
+                        borderRadius: 3,
+                        fontFamily: 'Microsoft YaHei',
+                        fontSize: 12
                       }
                     }
                   }
@@ -191,29 +209,29 @@ export default {
             lineStyle: {
               width: 1
             },
-            color: '#01a2f6',
-            smooth: true,
-            areaStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(
-                  0,
-                  0,
-                  0,
-                  1,
-                  [
-                    {
-                      offset: 0,
-                      color: 'rgba(1, 162, 246, 0.25)'
-                    },
-                    {
-                      offset: 1,
-                      color: 'rgba(125, 178, 244, 0.02)'
-                    }
-                  ],
-                  false
-                )
-              }
-            }
+            color: this.lineColor,
+            smooth: true
+            // areaStyle: {
+            //   normal: {
+            //     color: new this.$echarts.graphic.LinearGradient(
+            //       0,
+            //       0,
+            //       0,
+            //       1,
+            //       [
+            //         {
+            //           offset: 0,
+            //           color: 'rgba(1, 162, 246, 0.25)'
+            //         },
+            //         {
+            //           offset: 1,
+            //           color: 'rgba(125, 178, 244, 0.02)'
+            //         }
+            //       ],
+            //       false
+            //     )
+            //   }
+            // }
           }
         ]
       }

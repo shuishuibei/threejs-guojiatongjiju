@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-09 16:09:43
+ * @LastEditTime: 2019-12-10 17:21:29
  -->
 <template>
   <div class="app-wrap">
@@ -14,7 +14,35 @@
           <!-- 已用资源统计 -->
           <div class="already-use use-count">
             <use-title title="已用资源统计" height="21" unit=""></use-title>
-            <div class="already-con"></div>
+            <div class="already-con">
+              <div class="host-con con-flag">
+                <div class="host-num num-flag">298</div>
+                <div class="host-img img-flag">
+                  <img src="../assets/imgs/cloud-host-img.png" alt="主机数量" width="65" height="65">
+                </div>
+                <div class="host-info info-flag">
+                  主机数量
+                </div>
+              </div>
+              <div class="power-con con-flag">
+                <div class="num-flag">298</div>
+                <div class="img-flag">
+                  <img src="../assets/imgs/power-img.png" alt="power小机数量" width="65" height="65">
+                </div>
+                <div class="info-flag" style="width: 150%;">
+                  power小机数量
+                </div>
+              </div>
+              <div class="bare-con con-flag">
+                <div class="num-flag">298</div>
+                <div class="img-flag">
+                  <img src="../assets/imgs/bare-metal-img.png" alt="裸金属数量" width="65" height="65">
+                </div>
+                <div class="info-flag">
+                  裸金属数量
+                </div>
+              </div>
+            </div>
           </div>
           <!-- 各租户拥有虚机数量Top5 -->
           <div class="host-top5 use-count">
@@ -24,9 +52,14 @@
               unit=""></use-title>
             <div class="host-top5-con">
               <div class="host-top5-title">
-                平台租户总量<span style="padding: 0px 15px;">{{
-                  tenantTotal
-                }}</span>个
+                平台租户总量
+                <span
+                  style="padding: 0px 15px;
+                    color:#fdd912;
+                    font-size: 2.25rem;
+                    font-family: DS-Digital;
+                    vertical-align: middle;">
+                  {{tenantTotal}}</span>个
               </div>
               <div class="host-top5-progress-bar">
                 <div
@@ -34,7 +67,12 @@
                   v-for="(item, index) in hostTop5"
                   :key="index">
                   <div class="progress-bar-text">
-                    <span class="progress-bar-title">{{ item.title }}</span>
+                    <span class="progress-bar-title">
+                      <span class="title-no" style="margin-right:8px" :style="noColorSty(index)">
+                        {{index + 1}}
+                      </span>
+                      {{ item.title }}
+                    </span>
                     <span class="progress-bar-ratio">{{ item.value }}</span>
                   </div>
                   <div class="progress-bar-wrapper">
@@ -56,6 +94,7 @@
             <div class="history-con" ref="cpu-use-con">
               <usage-line-chart
                 flag-id="cpu-use-con"
+                line-color="#0397ff"
                 :series-data="CpuSeriesData"
                 :row-data="CpuRowData"></usage-line-chart>
             </div>
@@ -65,6 +104,7 @@
             <use-title title="内存历史使用量" height="21"></use-title>
             <div class="history-con" ref="memory-use-con">
               <usage-line-chart
+                line-color="#fdd912"
                 flag-id="memory-use-con"
                 :series-data="CpuSeriesData"
                 :row-data="CpuRowData">
@@ -76,6 +116,7 @@
             <use-title title="内存历史使用量" height="21"></use-title>
             <div class="history-con" ref="storage-use-con">
               <usage-line-chart
+                line-color="#02f235"
                 flag-id="storage-use-con"
                 :series-data="CpuSeriesData"
                 :row-data="CpuRowData"></usage-line-chart>
@@ -84,7 +125,30 @@
         </div>
       </div>
       <div class="app-bottom-content">
-        <circle-process></circle-process>
+        <div class="circle-con" style="position: relative;padding-top: 3.5%;">
+          <div style="position: absolute;left: 0;">
+            <circle-process text-color="#05c9fb" :size="100" :percent=" 50"></circle-process>
+          </div>
+          <div class="split-line" style="width: 2px;
+    height: 31%;
+    background: #0e5d94;
+    position: absolute;
+    margin-top:2%;
+    left: 31%;"></div>
+          <div>
+            <circle-process text-color="#fdd912" :size="100" :percent="80"></circle-process>
+          </div>
+          <div class="split-line" style="width: 2px;
+            height: 31%;
+            background: #0e5d94;
+            position: absolute;
+            margin-top:2%;
+            right: 29%">
+          </div>
+          <div style="position: absolute;right: -5px;">
+            <circle-process text-color="#02f235" :size="100" :percent="100"></circle-process>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -111,35 +175,35 @@ export default {
       tenantTotal: 800,
       hostTop5: [
         {
-          title: '1.租户名称',
+          title: '租户名称',
           value: 240,
           sty: {
             width: '50%'
           }
         },
         {
-          title: '1.租户名称',
+          title: '租户名称',
           value: 888,
           sty: {
             width: '50%'
           }
         },
         {
-          title: '1.租户名称',
+          title: '租户名称',
           value: 240,
           sty: {
             width: '50%'
           }
         },
         {
-          title: '1.租户名称',
+          title: '租户名称',
           value: 240,
           sty: {
             width: '50%'
           }
         },
         {
-          title: '1.租户名称',
+          title: '租户名称',
           value: 240,
           sty: {
             width: '50%'
@@ -165,6 +229,38 @@ export default {
   computed: {
     getBarWidth(value) {
       return value / this.tenantTotal;
+    },
+    noColorSty() {
+      let color = '';
+      return index => {
+        switch (index + 1) {
+          case 1:
+            color = '#ff3600';
+            return {
+              color: color
+            };
+          case 2:
+            color = '#fdd912';
+            return {
+              color: color
+            };
+          case 3:
+            color = '#02f235';
+            return {
+              color: color
+            };
+          case 4:
+            color = '#0fe5fe';
+            return {
+              color: color
+            };
+          case 5:
+            color = '#089cfd';
+            return {
+              color: color
+            };
+        }
+      };
     }
   }
 };
@@ -185,20 +281,26 @@ body,
 @middleHeight: 73.5%;
 @bottomHeight: 20%;
 @useCount: 21px;
-// @font-face {
-//   font-family: 'DS-Digital'; /*字体名称*/
-//   src: url('字体/DS-Digital.eot') format('embedded-opentype'),
-//     /* IE6-IE8 */ url('字体/DS-Digital.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-// }
+@font-face {
+  font-family: 'DS-Digital'; /*字体名称*/
+  src: 
+    /* IE6-IE8 */ url('../assets/font/DS-Digital.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+}
+
+@font-face {
+  font-family: 'Fette-Engschrift'; /*字体名称*/
+  src:
+    /* IE6-IE8 */ url('../assets/font/Fette-Engschrift.ttf')
+    format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+}
 
 .app-wrap {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: url('../assets/imgs/index.jpg') center no-repeat;
+  background: url('../assets/imgs/bg.png') center no-repeat;
   background-size: 100% 100%;
-
   .app-content {
     position: relative;
     width: 100%;
@@ -224,16 +326,57 @@ body,
           width: 100%;
           .already-con {
             width: 100%;
-            height: calc(~'100% - @{useCount}');
+            height: calc(~'96% - @{useCount}');
+            display: flex;
+            justify-content: space-between;
+            .con-flag {
+              width: 70px;
+              height: 100%;
+              flex-direction: column;
+              display: flex;
+              text-align: center;
+              align-items: center;
+              padding-top: 6%;
+              .num-flag {
+                color: #05c9fb;
+                font-size: 2.5rem;
+                font-family: Fette-Engschrift;
+                // flex: 1;
+                // line-height: 3rem;
+                text-align: center;
+              }
+              .img-flag {
+                flex: 1;
+              }
+              .info-flag {
+                color: #fff;
+                font-size: 0.875rem;
+                font-family: 'MicrosoftYaHei';
+                flex: 1;
+                line-height: 2rem;
+              }
+            }
+            .power-con {
+              width: 70px;
+              height: 100%;
+            }
+            .bare-con {
+              width: 70px;
+              height: 100%;
+            }
           }
           .host-top5-con {
             width: 100%;
             height: calc(~'100% - @{useCount}');
-            padding-top: 13%;
+            padding-top: 9%;
             box-sizing: border-box;
             .host-top5-title {
               width: 100%;
               height: 5%;
+              font-family: 'MicrosoftYaHei';
+              font-size: 1rem;
+              color: #fff;
+              vertical-align: middle;
             }
             .host-top5-progress-bar {
               width: 100%;
@@ -249,17 +392,22 @@ body,
                   width: 98%;
                   font-size: 0.49rem;
                   position: absolute;
-                  top: 55%;
+                  top: 52%;
                   font-family: 'Microsoft YaHei';
+                  line-height: 1rem;
                   .progress-bar-title {
                     position: absolute;
                     left: 0;
+                    font-family: 'Microsoft YaHei';
+                    color: #fff;
+                    font-size: 0.875rem;
                   }
                   .progress-bar-ratio {
                     position: absolute;
                     right: 0;
                     font-family: DS-Digital;
-                    font-size: 0.87rem;
+                    font-size: 1.5rem;
+                    color: #05c9fb;
                   }
                 }
                 .progress-bar-wrapper {
@@ -271,15 +419,15 @@ body,
                     height: 100%;
                     background: -moz-linear-gradient(
                       to right,
-                      #03b3e4,
-                      #01b074
+                      #038bff,
+                      #05cafb
                     );
-                    background: -o-linear-gradient(to right, #03b3e4, #01b074);
-                    background: linear-gradient(to right, #03b3e4, #01b074);
+                    background: -o-linear-gradient(to right, #038bff, #05cafb);
+                    background: linear-gradient(to right, #038bff, #05cafb);
                     background: -webkit-linear-gradient(
                       to right,
-                      #03b3e4,
-                      #01b074
+                      #038bff,
+                      #05cafb
                     );
                     border-radius: 5px;
                     position: absolute;
@@ -288,16 +436,16 @@ body,
                   }
                   /* IE8+ */
                   .start-gradient {
-                    color: #26d1fc;
+                    color: #03b3e4;
                     font-weight: bold;
                     font-size: 1.6rem;
                     font-family: Fette-Engschrift;
                   }
                   .progress-bar-already {
-                    background-color: #03b3e4;
+                    background-color: #038bff;
                   }
                   .progress-bar-total {
-                    background: #093a5c;
+                    background: #023d75;
                     border-radius: 5px;
                     position: absolute;
                     height: 100%;
@@ -337,6 +485,15 @@ body,
     .app-bottom-content {
       width: 100%;
       height: @bottomHeight;
+      background: url('../assets/imgs/bottom-bg.png') center no-repeat;
+      background-size: 100% 100%;
+      display: flex;
+      justify-content: center;
+      .circle-con {
+        width: 58.5%;
+        display: flex;
+        justify-content: center;
+      }
     }
   }
 }
