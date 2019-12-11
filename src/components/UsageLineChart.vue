@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-10 14:03:07
+ * @LastEditTime: 2019-12-11 17:37:58
  -->
 <template>
   <div></div>
@@ -11,6 +11,8 @@
 <script>
 import _ from 'lodash';
 import colorChange from '@/assets/js/color-change.js';
+import { on, off } from '@/assets/js/dom.js';
+
 export default {
   name: 'UsageLineChart',
   mixins: [colorChange],
@@ -247,10 +249,17 @@ export default {
       option.series[0].data = this.seriesData;
       option.xAxis.data = this.rowData;
       return option;
+    },
+    handleResize() {
+      this.useChart.resize();
     }
   },
   mounted() {
     this.init();
+    on(window, 'resize', this.handleResize);
+  },
+  beforeDestroy() {
+    off(window, 'resize', this.handleResize);
   }
 };
 </script>

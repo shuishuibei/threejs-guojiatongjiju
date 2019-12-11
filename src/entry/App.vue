@@ -3,12 +3,14 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-10 17:21:29
+ * @LastEditTime: 2019-12-11 15:39:09
  -->
 <template>
   <div class="app-wrap">
     <div class="app-content">
-      <header></header>
+      <header>
+        <img src="../assets/imgs/title-img.png" alt="标题img">
+      </header>
       <div class="app-middle-content">
         <div class="content-left">
           <!-- 已用资源统计 -->
@@ -85,7 +87,10 @@
           </div>
         </div>
         <div class="content-middle">
-          <topo-chart></topo-chart>
+          <use-title title="云计算整体架构" height="21" unit=""></use-title>
+          <div class="content-middle-con">
+            <topo-chart></topo-chart>
+          </div>
         </div>
         <div class="content-right">
           <!-- cpu 历史使用量 -->
@@ -309,6 +314,11 @@ body,
     header {
       width: 100%;
       height: @headerHeight;
+      background: url('../assets/imgs/top-bg.png') center no-repeat;
+      background-size: 100% 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .app-middle-content {
       width: 100%;
@@ -467,6 +477,13 @@ body,
       }
       .content-middle {
         width: 58%;
+        padding: 25px 40px;
+        .content-middle-con {
+          width: 100%;
+          height: calc(~'100% - 21px');
+          background: url('../assets/imgs/topology-img.png') center no-repeat;
+          background-size: 99% 100%;
+        }
       }
       .content-right {
         display: flex;

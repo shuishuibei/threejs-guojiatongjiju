@@ -3,17 +3,32 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 15:38:51
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-09 17:31:24
+ * @LastEditTime: 2019-12-11 17:36:31
  -->
 <template>
   <div class="topo-chart-container">
     <div id="topo-chart">
+    </div>
+    <div class="topo-description">
+      <div class="topo-type">
+        <span class="topo-type-color"></span>
+        <span class="topo-type-info">与SDN控制器相关联</span>
+      </div>
+      <div class="topo-type">
+        <span class="topo-type-color" style="background:#037aff"></span>
+        <span class="topo-type-info">与Power管理容器相关联</span>
+      </div>
+      <div class="topo-type">
+        <span class="topo-type-color" style="background:#03d0f1"></span>
+        <span class="topo-type-info">与裸金属/虚拟化管理节点</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
+import { on, off } from '@/assets/js/dom.js';
 export default {
   name: 'TopoChart',
   data() {
@@ -45,7 +60,7 @@ export default {
             },
             effect: {
               show: true,
-              color: 'orange',
+              color: '#03d0f1',
               period: 6,
               trailLength: 0.2,
               symbol: 'circle',
@@ -53,10 +68,88 @@ export default {
               constantSpeed: 0,
               loop: true
             },
-            data: [
-              // { coords: [[110, 200], [340, 200]] },
-              // { coords: [[340, 200], [85, 135]] }
-            ]
+            data: []
+          },
+          {
+            name: '飞线图',
+            type: 'lines',
+            coordinateSystem: 'cartesian2d',
+            zlevel: 20,
+            animation: false,
+            polyline: true,
+            lineStyle: {
+              normal: {
+                color: 'transparent',
+                type: 'solid',
+                width: 1,
+                curveness: 0.3
+              }
+            },
+            effect: {
+              show: true,
+              color: '#037aff',
+              period: 6,
+              trailLength: 0.2,
+              symbol: 'circle',
+              symbolSize: 3,
+              constantSpeed: 0,
+              loop: true
+            },
+            data: []
+          },
+          {
+            name: '飞线图',
+            type: 'lines',
+            coordinateSystem: 'cartesian2d',
+            zlevel: 20,
+            animation: false,
+            polyline: true,
+            lineStyle: {
+              normal: {
+                color: 'transparent',
+                type: 'solid',
+                width: 1,
+                curveness: 0.3
+              }
+            },
+            effect: {
+              show: true,
+              color: '#fdd912',
+              period: 6,
+              trailLength: 0.2,
+              symbol: 'circle',
+              symbolSize: 3,
+              constantSpeed: 0,
+              loop: true
+            },
+            data: []
+          },
+          {
+            name: '飞线图',
+            type: 'lines',
+            coordinateSystem: 'cartesian2d',
+            zlevel: 20,
+            animation: false,
+            polyline: true,
+            lineStyle: {
+              normal: {
+                color: 'transparent',
+                type: 'solid',
+                width: 1,
+                curveness: 0.3
+              }
+            },
+            effect: {
+              show: true,
+              color: '#55fe7c',
+              period: 6,
+              trailLength: 0.2,
+              symbol: 'circle',
+              symbolSize: 3,
+              constantSpeed: 0,
+              loop: true
+            },
+            data: []
           }
         ],
         xAxis: {
@@ -186,66 +279,151 @@ export default {
         animationEasing: 'cubicOut ',
         animationDuration: 700
       },
-      /*每个部门的矩形图片位置*/
-      buildingJsonModalData: {
-        民航公安局: {
-          coords: [[245, 145], [155, 175]]
-        },
-        森林公安局: {
-          coords: [[218, 132], [158, 101], [127, 110]]
-        },
-        龙洞堡交警总队: {
-          coords: [[267, 116], [155, 59]]
-        },
-        警察学院: {
-          coords: [[337, 95], [249, 49]]
-        },
-        政务服务中心: {
-          coords: [[337, 95], [437, 63], [385, 37]]
-        },
-        '110服务中心': {
-          coords: [[380, 117], [512, 73]]
-        },
-        消防总队: {
-          coords: [[429, 141], [513, 116]]
-        },
-        警犬基地: {
-          coords: [[430, 141], [498, 177]]
-        },
-        省看守所: {
-          coords: [[370, 166], [468, 218]]
-        },
-        边防总队: {
-          coords: [[350, 195], [378, 208], [332, 225]]
-        },
-        海关缉私局: {
-          coords: [[312, 185], [217, 218]]
-        }
-      },
-      // 每个部位的光点移动坐标
-      orangeNodes: [
-        { coords: [[305, 145], [265, 129]] }
-        // { coords: [[110, 200], [85, 20]] }
+      // 裸金属/虚拟化管理节点 #03d0f1
+      bareNodes: [
+        { coords: [[280, 244], [203, 213]] },
+        // { coords: [[294, 239], [217, 208]] }
+        { coords: [[294, 239], [22, 130], [52, 118]] },
+        { coords: [[386, 214], [324, 239]] }
       ],
-      blueNodes: [
-        { coords: [[340, 200], [383, 47]] },
-        { coords: [[340, 200], [523, 74]] },
-        { coords: [[340, 200], [555, 140]] }
+      powerNodes: [
+        // 域power管理容器相关联
+        { coords: [[464, 182], [534, 156]] },
+        { coords: [[529, 133], [406, 83]] },
+        { coords: [[239, 167], [374, 114]] },
+        { coords: [[225, 166], [275, 145], [250, 134]] }
+      ],
+      // SDN控制器相关联
+      sdnNodes: [
+        { coords: [[305, 150], [260, 131]] },
+        { coords: [[360, 148], [410, 129]] },
+        { coords: [[299, 172], [262, 187]] },
+        { coords: [[363, 175], [385, 184]] }
+      ],
+      // vxLan
+      vxNodes: [
+        { coords: [[165, 96], [138, 85]] },
+        { coords: [[265, 84], [338, 56]] },
+        { coords: [[155, 130], [80, 160]] }
+      ],
+      // 地点标题名字
+      titleArr: [
+        {
+          title: '云管理平台',
+          x: '14%',
+          y: '74.5%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        },
+        {
+          title: 'Power机管理容器',
+          x: '35%',
+          y: '84%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        },
+        {
+          title: '防火墙设备',
+          x: '45%',
+          y: '67%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        },
+        {
+          title: 'Power机资源池',
+          x: '69%',
+          y: '53%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        },
+        {
+          title: 'SDN控制器',
+          x: '30%',
+          y: '52%',
+          color: '#fdd912',
+          shadowColor: '#fdd912'
+        },
+        {
+          title: '裸金属/虚拟化管理节点',
+          x: '1%',
+          y: '41%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        },
+        {
+          title: '04X出口设备',
+          x: '17%',
+          y: '34%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        },
+        {
+          title: '裸金属资源池',
+          x: '18%',
+          y: '11%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        },
+        {
+          title: 'VxLAN',
+          x: '47%',
+          y: '34.5%',
+          color: '#55fe7c',
+          shadowColor: '#05ee3b'
+        },
+        {
+          title: '虚拟化资源池',
+          x: '82%',
+          y: '7.5%',
+          color: '#e5f8fc',
+          shadowColor: '#1fadd6'
+        }
       ]
     };
   },
   methods: {
     initData() {
       let option = _.cloneDeep(this.topoChartOption);
-      option.series[0].data = this.orangeNodes;
-      // option.series[1].data = this.blueNodes;
+      option.series[0].data = this.bareNodes;
+      option.series[1].data = this.powerNodes;
+      option.series[2].data = this.sdnNodes;
+      option.series[3].data = this.vxNodes;
       return option;
     },
-    addColorData() {},
+    createHtmlEle(eleType, cName) {
+      let containerDiv = document.createElement('div');
+      if (cName) {
+        containerDiv.setAttribute('class', cName);
+      }
+      return containerDiv;
+    },
+    addTitleLocation() {
+      let container = document.getElementsByClassName(
+        'topo-chart-container'
+      )[0];
+
+      this.titleArr.forEach(value => {
+        let node = document.createElement('div');
+        node.innerHTML = value.title;
+        node.style.position = 'absolute';
+        node.style.top = value.x;
+        node.style.left = value.y;
+        node.style.color = value.color;
+        node.style.fontSize = '0.875rem';
+        node.style.fontFamily = 'MicrosoftYaHei';
+        node.style.textShadow = `4px -2px 4px ${value.shadowColor}`;
+        node.style.transform = 'skew(0deg,28deg)';
+        container.appendChild(node);
+      });
+    },
     initChart() {
-      // this.initData(); // 加工数据
-      this.topoChartNode.setOption(this.initData());
-      console.log(this.topoChartNode);
+      let data = this.initData();
+
+      this.topoChartNode.setOption(data);
+      this.addTitleLocation();
+    },
+    handleResize() {
+      this.topoChartNode.resize();
     }
   },
   mounted() {
@@ -253,6 +431,10 @@ export default {
       document.getElementById('topo-chart')
     );
     this.initChart();
+    on(window, 'resize', this.handleResize);
+  },
+  beforeDestroy() {
+    off(window, 'resize', this.handleResize);
   }
 };
 </script>
@@ -268,6 +450,37 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+  }
+  .topo-description {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 26.5%;
+    height: 17.5%;
+    background: rgba(2, 101, 212, 0.25);
+    border-radius: 5px;
+    padding-left: 2%;
+    padding-top: 1.8%;
+    padding-bottom: 1.8%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    .topo-type {
+      .topo-type-color {
+        display: inline-block;
+        width: 15px;
+        height: 3px;
+        background: #fdd912;
+        vertical-align: middle;
+      }
+      .topo-type-info {
+        padding-left: 10px;
+        color: #fff;
+        font-size: 0.75rem;
+        font-family: 'MicrosoftYaHei';
+        vertical-align: middle;
+      }
+    }
   }
 }
 </style>
