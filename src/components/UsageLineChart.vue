@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-11 17:37:58
+ * @LastEditTime: 2019-12-12 10:13:10
  -->
 <template>
   <div></div>
@@ -21,14 +21,17 @@ export default {
       type: [Object, Array],
       required: true
     },
+    // x轴刻度数据
     rowData: {
       type: [Object, Array],
       required: true
     },
+    // 父节点id
     flagId: {
       type: String,
       required: true
     },
+    // line的颜色
     lineColor: {
       type: String,
       default: '#01a2f6'

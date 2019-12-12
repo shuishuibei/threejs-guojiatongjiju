@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 15:38:51
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-11 17:36:31
+ * @LastEditTime: 2019-12-12 10:11:52
  -->
 <template>
   <div class="topo-chart-container">
@@ -29,6 +29,7 @@
 <script>
 import _ from 'lodash';
 import { on, off } from '@/assets/js/dom.js';
+
 export default {
   name: 'TopoChart',
   data() {
@@ -382,6 +383,12 @@ export default {
     };
   },
   methods: {
+    /**
+     * @function: initData
+     * @description: 初始化光点移动数据
+     * @param {type}
+     * @returns: {void}
+     */
     initData() {
       let option = _.cloneDeep(this.topoChartOption);
       option.series[0].data = this.bareNodes;
@@ -390,13 +397,12 @@ export default {
       option.series[3].data = this.vxNodes;
       return option;
     },
-    createHtmlEle(eleType, cName) {
-      let containerDiv = document.createElement('div');
-      if (cName) {
-        containerDiv.setAttribute('class', cName);
-      }
-      return containerDiv;
-    },
+    /**
+     * @function: addTitleLocation
+     * @description: 添加地址名称
+     * @param {type}
+     * @returns: {void}
+     */
     addTitleLocation() {
       let container = document.getElementsByClassName(
         'topo-chart-container'
@@ -418,7 +424,6 @@ export default {
     },
     initChart() {
       let data = this.initData();
-
       this.topoChartNode.setOption(data);
       this.addTitleLocation();
     },
@@ -438,6 +443,7 @@ export default {
   }
 };
 </script>
+
 <style lang="less" scoped>
 .topo-chart-container {
   position: relative;
@@ -451,6 +457,7 @@ export default {
     width: 100%;
     height: 100%;
   }
+
   .topo-description {
     position: absolute;
     right: 0;
@@ -465,6 +472,7 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+
     .topo-type {
       .topo-type-color {
         display: inline-block;
@@ -473,6 +481,7 @@ export default {
         background: #fdd912;
         vertical-align: middle;
       }
+
       .topo-type-info {
         padding-left: 10px;
         color: #fff;

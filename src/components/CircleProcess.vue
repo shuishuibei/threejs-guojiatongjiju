@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-10 16:49:06
+ * @LastEditTime: 2019-12-12 10:09:52
  -->
 <template>
   <div class="hard-ware-con" style="width:200px">
@@ -67,6 +67,7 @@
 </template>
 <script>
 import colorChange from '@/assets/js/color-change.js';
+
 export default {
   name: 'CircleProcess',
   mixins: [colorChange],
@@ -137,6 +138,7 @@ export default {
         height: `${this.size}px`
       };
     },
+    // 半径
     radius() {
       return 50 - this.strokeWidth / 2;
     },
@@ -166,22 +168,23 @@ export default {
   }
 };
 </script>
+
 <style lang="less" scoped>
-// svg > path:nth-child(2) {
-//   stroke: red;
-// }
 @font-face {
   font-family: 'Fette-Engschrift'; /*字体名称*/
   src:
     /* IE6-IE8 */ url('../assets/font/Fette-Engschrift.ttf')
     format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
+
 .hard-ware-con {
   width: 200px;
   position: relative;
+
   .circle-container {
     position: relative;
     display: inline-block;
+
     .inner-text {
       width: 100%;
       text-align: center;
@@ -191,6 +194,7 @@ export default {
       transform: translateY(-50%);
     }
   }
+
   .hard-ware-info {
     position: absolute;
     top: 0;
@@ -199,19 +203,23 @@ export default {
     color: #fff;
     font-size: 1em;
     padding-left: 20px;
+
     .info-name {
       font-family: 'MicrosoftYaHei';
       font-size: 1.25rem;
     }
+
     .already-have {
       font-family: Fette-Engschrift;
       font-size: 2.5rem;
     }
+
     .all-have {
       font-family: Fette-Engschrift;
       font-size: 2.5rem;
       color: #fff;
     }
+
     .unit {
       font-family: 'MicrosoftYaHei';
       font-size: 1.125rem;

@@ -3,9 +3,8 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 11:28:49
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-10 13:56:03
+ * @LastEditTime: 2019-12-12 10:16:55
  */
-
 String.prototype.colorRgba = function(aph) {
   // 16进制颜色值的正则
   var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;

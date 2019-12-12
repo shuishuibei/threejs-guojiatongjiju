@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-11 15:39:09
+ * @LastEditTime: 2019-12-12 10:16:24
  -->
 <template>
   <div class="app-wrap">
@@ -178,6 +178,7 @@ export default {
       CpuSeriesData: [50, 10, 65, 90, 15, 55],
       CpuRowData: ['11/23', '11/24', '11/25', '11/26', '11/27', '11/28'],
       tenantTotal: 800,
+      // 各租户拥有虚机数量Top5
       hostTop5: [
         {
           title: '租户名称',
@@ -235,6 +236,12 @@ export default {
     getBarWidth(value) {
       return value / this.tenantTotal;
     },
+    /**
+     * @function: noColorSty
+     * @description: Top5区分颜色
+     * @param {type}
+     * @returns: {void}
+     */
     noColorSty() {
       let color = '';
       return index => {
