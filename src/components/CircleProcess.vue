@@ -3,11 +3,11 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-12 10:09:52
+ * @LastEditTime: 2019-12-12 10:46:54
  -->
 <template>
-  <div class="hard-ware-con" style="width:200px">
-    <div class="circle-container" :style="circleSize">
+  <div class="hard-ware-con" style="width:100%">
+    <div class="circle-container" style="width:50%;height:100%">
       <!-- width="100%" height="100%" version="1.1" -->
       <svg viewBox="0 0 100 100"
         xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@
       </div>
     </div>
     <!-- 硬件信息 -->
-    <div class="hard-ware-info" :style="hardSize">
+    <div class="hard-ware-info" style="width:50%;height:100%">
       <div style="display: table-cell;vertical-align: middle;">
         <span class="info-name" :style="{color: textColor}">{{hardName}}</span>
         <br>
@@ -126,12 +126,14 @@ export default {
     shadowStrokeColor() {
       return this.color.colorRgba(0.2);
     },
+    // 原形进度条大小
     circleSize() {
       return {
         width: `${this.size}px`,
         height: `${this.size}px`
       };
     },
+    // 进度条旁边提示信息大小
     hardSize() {
       return {
         width: `${200 - this.size}px`,

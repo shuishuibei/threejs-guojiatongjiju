@@ -3,10 +3,10 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-12 10:13:10
+ * @LastEditTime: 2019-12-12 16:50:40
  -->
 <template>
-  <div></div>
+  <div :id="flagId" style="width:100%;height:100%"></div>
 </template>
 <script>
 import _ from 'lodash';
@@ -65,9 +65,6 @@ export default {
           type: 'category',
           boundaryGap: false, //坐标轴两边留白策略
           data: [],
-          splitLine: {
-            show: false
-          },
           axisLine: {
             show: false,
             lineStyle: {
@@ -83,11 +80,15 @@ export default {
           },
           axisPointer: {
             triggerTooltip: true
+          },
+          splitLine: {
+            show: false
           }
         },
         yAxis: {
           type: 'value',
           min: 0, // 坐标轴刻度最小值
+          // minInterval: 1,
           axisLine: {
             show: false,
             lineStyle: {
@@ -96,7 +97,9 @@ export default {
             }
           },
           axisLabel: {
-            interval: 0 //坐标轴刻度标签的显示间隔 0强制显示所有标签
+            interval: 0, //坐标轴刻度标签的显示间隔 0强制显示所有标签
+            showMinLabel: true,
+            showMaxLabel: true
           },
           axisTick: {
             show: false
@@ -121,7 +124,7 @@ export default {
             },
             markPoint: {
               symbol: 'circle',
-              symbolSize: 30,
+              symbolSize: 23,
               itemStyle: {
                 color: {
                   type: 'radial',
@@ -244,7 +247,7 @@ export default {
   },
   methods: {
     init() {
-      this.useChart = this.$echarts.init(this.$parent.$refs[this.flagId]);
+      this.useChart = this.$echarts.init(document.getElementById(this.flagId));
       this.useChart.setOption(this.setData());
     },
     setData() {
