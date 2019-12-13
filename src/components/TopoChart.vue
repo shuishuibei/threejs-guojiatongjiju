@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 15:38:51
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-13 17:02:07
+ * @LastEditTime: 2019-12-13 17:33:12
  -->
 <template>
   <div class="topo-chart-container">
@@ -295,7 +295,7 @@ export default {
       powerNodes: [
         // 域power管理容器相关联
         { coords: [[464, 182], [534, 156]] },
-        { coords: [[529, 133], [406, 83]] },
+        { coords: [[529, 133], [406, 84]] },
         { coords: [[239, 167], [374, 114]] },
         { coords: [[225, 166], [275, 145], [250, 134]] }
       ],
@@ -308,9 +308,9 @@ export default {
       ],
       // vxLan
       vxNodes: [
-        { coords: [[165, 96], [138, 85]] },
-        { coords: [[265, 84], [338, 56]] },
-        { coords: [[155, 130], [80, 160]] }
+        { coords: [[165, 96], [138, 86]] },
+        { coords: [[267, 84], [338, 57]] },
+        { coords: [[154, 131], [80, 160]] }
       ],
       // 地点标题名字
       titleArr: [
