@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-12 10:46:54
+ * @LastEditTime: 2019-12-13 16:33:11
  -->
 <template>
   <div class="hard-ware-con" style="width:100%">
@@ -14,14 +14,14 @@
         <path d="M 50,50 m 0,-46
                 a 46,46 0 1 1 0,92
                 a 46,46 0 1 1 0,-92" stroke="#023d7f" stroke-width="5" fill-opacity="0" stroke-linecap="round"></path>
-        <path d="M 50,50 m 0,-46
+        <!-- <path d="M 50,50 m 0,-46
                 a 46,46 0 1 1 0,92
                 a 46,46 0 1 1 0,-92"
           stroke-linecap="round"
           :stroke="shadowStrokeColor"
           stroke-width="11"
           fill-opacity="0"
-          :style="pathStyle"></path>
+          :style="pathStyle"></path> -->
         <!-- <path d="M 50,50 m 0,-46
                 a 46,46 0 1 1 0,92
                 a 46,46 0 1 1 0,-92"

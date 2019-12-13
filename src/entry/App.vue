@@ -3,12 +3,13 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-12 17:00:06
+ * @LastEditTime: 2019-12-13 16:40:09
  --> 
 <template>
   <div class="app-wrap">
     <div class="app-content">
       <header>
+        <img src="../assets/imgs/logo-img.png" width="35" height="35" style="margin-right: 10px" alt="标题img">
         <img src="../assets/imgs/title-img.png" alt="标题img">
       </header>
       <div class="app-middle-content">

@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 15:38:51
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-12 10:11:52
+ * @LastEditTime: 2019-12-13 17:02:07
  -->
 <template>
   <div class="topo-chart-container">
@@ -61,11 +61,13 @@ export default {
             },
             effect: {
               show: true,
-              color: '#03d0f1',
+              // color: '#03d0f1',
+              // color: linear-gradient(to right, '#038bff', '#05cafb'),
+              color: '#fff',
               period: 6,
               trailLength: 0.2,
               symbol: 'circle',
-              symbolSize: 3,
+              symbolSize: 4,
               constantSpeed: 0,
               loop: true
             },
@@ -88,11 +90,12 @@ export default {
             },
             effect: {
               show: true,
-              color: '#037aff',
+              // color: '#037aff',
+              color: '#fff',
               period: 6,
               trailLength: 0.2,
               symbol: 'circle',
-              symbolSize: 3,
+              symbolSize: 4,
               constantSpeed: 0,
               loop: true
             },
@@ -115,11 +118,12 @@ export default {
             },
             effect: {
               show: true,
-              color: '#fdd912',
+              // color: '#fdd912',
+              color: '#fff',
               period: 6,
               trailLength: 0.2,
               symbol: 'circle',
-              symbolSize: 3,
+              symbolSize: 4,
               constantSpeed: 0,
               loop: true
             },
@@ -142,11 +146,12 @@ export default {
             },
             effect: {
               show: true,
-              color: '#55fe7c',
+              // color: '#55fe7c',
+              color: '#fff',
               period: 6,
               trailLength: 0.2,
               symbol: 'circle',
-              symbolSize: 3,
+              symbolSize: 4,
               constantSpeed: 0,
               loop: true
             },
@@ -417,7 +422,7 @@ export default {
         node.style.color = value.color;
         node.style.fontSize = '0.875rem';
         node.style.fontFamily = 'MicrosoftYaHei';
-        node.style.textShadow = `4px -2px 4px ${value.shadowColor}`;
+        node.style.textShadow = `0 0 20px ${value.shadowColor}`;
         node.style.transform = 'skew(0deg,28deg)';
         container.appendChild(node);
       });
