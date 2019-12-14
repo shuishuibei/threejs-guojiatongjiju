@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-14 19:20:17
+ * @LastEditTime: 2019-12-14 19:58:57
  -->
 <template>
   <div :id="flagId" style="width:100%;height:100%"></div>
@@ -35,13 +35,17 @@ export default {
     lineColor: {
       type: String,
       default: '#01a2f6'
+    },
+    nameFlag: {
+      type: String,
+      default: 'cpu'
     }
   },
   data() {
     return {
       useChart: null,
       useChartOption: {
-        name: '',
+        name: this.nameFlag,
         grid: {
           left: '10%',
           right: '5.5%',
@@ -50,7 +54,34 @@ export default {
         },
         tooltip: {
           trigger: 'axis',
-          formatter: '{b}月份<br/>活跃用户数：{c}',
+          //formatter: '{b}月份<br/>活跃用户数：{c}',
+          formatter: params => {
+            if (params[0].color == '#0397ff') {
+              return (
+                params[0].name +
+                '<br/>' +
+                this.nameFlag +
+                '：' +
+                params[0].value
+              );
+            } else if (params[0].color == '#fdd912') {
+              return (
+                params[0].name +
+                '<br/>' +
+                this.nameFlag +
+                '：' +
+                params[0].value
+              );
+            } else if (params[0].color == '#02f235') {
+              return (
+                params[0].name +
+                '<br/>' +
+                this.nameFlag +
+                '：' +
+                params[0].value
+              );
+            }
+          },
           axisPointer: {
             type: 'line',
             textStyle: {

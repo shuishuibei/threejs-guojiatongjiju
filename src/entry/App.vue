@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-14 18:54:06
+ * @LastEditTime: 2019-12-14 19:47:08
  --> 
 <template>
   <div class="app-wrap">
@@ -99,6 +99,7 @@
                 flag-id="cpu-use-con"
                 line-color="#0397ff"
                 :series-data="CpuSeriesData"
+                name-flag="CPU使用量"
                 :row-data="CpuRowData"></usage-line-chart>
             </div>
           </div>
@@ -110,18 +111,20 @@
                 line-color="#fdd912"
                 flag-id="memory-use-con"
                 :series-data="CpuSeriesData"
+                name-flag="内存使用量"
                 :row-data="CpuRowData">
               </usage-line-chart>
             </div>
           </div>
           <!-- 存储历史使用量 -->
           <div class="storage-use use-count">
-            <use-title title="内存历史使用量" height="21"></use-title>
+            <use-title title="存储历史使用量" height="21"></use-title>
             <div class="history-con">
               <usage-line-chart
                 line-color="#02f235"
                 flag-id="storage-use-con"
                 :series-data="CpuSeriesData"
+                name-flag="存储使用量"
                 :row-data="CpuRowData"></usage-line-chart>
             </div>
           </div>

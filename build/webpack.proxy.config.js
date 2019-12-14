@@ -3,13 +3,14 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:32
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-13 13:32:59
+ * @LastEditTime: 2019-12-14 19:39:42
  */
 const webpackConfig = require("./webpack.common.config"); // 引入公共的的配置文件
 const merge = require("webpack-merge"); // 用来合并和覆盖相同配置项的插件
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); //指定html模板的插件 还可以用来压缩html文件
+
 // 合并
 const devWebpackConfig = merge(webpackConfig, {
   devtool: "cheap-module-eval-source-map", // 开发环境下建议用这个配置 生产环境下用source-map 官方推荐
