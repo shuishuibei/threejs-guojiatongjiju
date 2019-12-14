@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-12 16:50:40
+ * @LastEditTime: 2019-12-14 19:20:17
  -->
 <template>
   <div :id="flagId" style="width:100%;height:100%"></div>
@@ -120,11 +120,17 @@ export default {
             symbolSize: 8,
             itemStyle: {
               borderColor: this.lineColor,
-              borderWidth: 2
+              borderWidth: 3
             },
             markPoint: {
               symbol: 'circle',
-              symbolSize: 23,
+              symbolSize: (value, params) => {
+                if (params.data.type == 'max') {
+                  return 33;
+                } else if (params.data.type == 'min') {
+                  return 26;
+                }
+              },
               itemStyle: {
                 color: {
                   type: 'radial',
@@ -215,31 +221,10 @@ export default {
               ]
             },
             lineStyle: {
-              width: 1
+              width: 2
             },
             color: this.lineColor,
             smooth: true
-            // areaStyle: {
-            //   normal: {
-            //     color: new this.$echarts.graphic.LinearGradient(
-            //       0,
-            //       0,
-            //       0,
-            //       1,
-            //       [
-            //         {
-            //           offset: 0,
-            //           color: 'rgba(1, 162, 246, 0.25)'
-            //         },
-            //         {
-            //           offset: 1,
-            //           color: 'rgba(125, 178, 244, 0.02)'
-            //         }
-            //       ],
-            //       false
-            //     )
-            //   }
-            // }
           }
         ]
       }

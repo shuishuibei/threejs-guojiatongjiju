@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 15:38:51
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-13 17:33:12
+ * @LastEditTime: 2019-12-14 16:03:20
  -->
 <template>
   <div class="topo-chart-container">
@@ -319,28 +319,28 @@ export default {
           x: '14%',
           y: '74.5%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         },
         {
           title: 'Power机管理容器',
           x: '35%',
           y: '84%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         },
         {
           title: '防火墙设备',
           x: '45%',
           y: '67%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         },
         {
           title: 'Power机资源池',
           x: '69%',
           y: '53%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         },
         {
           title: 'SDN控制器',
@@ -354,21 +354,21 @@ export default {
           x: '1%',
           y: '41%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         },
         {
           title: '04X出口设备',
           x: '17%',
           y: '34%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         },
         {
           title: '裸金属资源池',
           x: '18%',
           y: '11%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         },
         {
           title: 'VxLAN',
@@ -382,7 +382,7 @@ export default {
           x: '82%',
           y: '7.5%',
           color: '#e5f8fc',
-          shadowColor: '#1fadd6'
+          shadowColor: '#059bf3'
         }
       ]
     };
@@ -422,7 +422,7 @@ export default {
         node.style.color = value.color;
         node.style.fontSize = '0.875rem';
         node.style.fontFamily = 'MicrosoftYaHei';
-        node.style.textShadow = `0 0 20px ${value.shadowColor}`;
+        node.style.textShadow = `0 0 10px ${value.shadowColor}`;
         node.style.transform = 'skew(0deg,28deg)';
         container.appendChild(node);
       });

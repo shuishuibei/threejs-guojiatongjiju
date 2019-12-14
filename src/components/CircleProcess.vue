@@ -3,17 +3,16 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-13 16:33:11
+ * @LastEditTime: 2019-12-14 18:03:46
  -->
 <template>
   <div class="hard-ware-con" style="width:100%">
     <div class="circle-container" style="width:50%;height:100%">
-      <!-- width="100%" height="100%" version="1.1" -->
       <svg viewBox="0 0 100 100"
         xmlns="http://www.w3.org/2000/svg">
         <path d="M 50,50 m 0,-46
                 a 46,46 0 1 1 0,92
-                a 46,46 0 1 1 0,-92" stroke="#023d7f" stroke-width="5" fill-opacity="0" stroke-linecap="round"></path>
+                a 46,46 0 1 1 0,-92" stroke="#023d7f" stroke-width="8.5" fill-opacity="0" stroke-linecap="round"></path>
         <!-- <path d="M 50,50 m 0,-46
                 a 46,46 0 1 1 0,92
                 a 46,46 0 1 1 0,-92"
@@ -36,18 +35,18 @@
                 a 46,46 0 1 1 0,-92"
           stroke-linecap="round"
           :stroke="color"
-          stroke-width="7"
+          stroke-width="8.5"
           fill-opacity="0"
           :style="pathStyle"></path>
       </svg>
       <div class="inner-text">
         <span style="color: #fff;
-          font-size: 3em; 
+          font-size: 3rem; 
           font-family: Fette-Engschrift;">
           {{percent}}
         </span>
         <span style="color: #fff;
-        font-size: 1.875em; 
+        font-size: 1.875rem; 
         font-family: Fette-Engschrift;">
           %
         </span>
@@ -57,7 +56,6 @@
     <div class="hard-ware-info" style="width:50%;height:100%">
       <div style="display: table-cell;vertical-align: middle;">
         <span class="info-name" :style="{color: textColor}">{{hardName}}</span>
-        <br>
         <span class="already-have" :style="{color: textColor}">{{alreadyHave}}</span>
         <span class="all-have">/{{allHave}}</span>
         <span class="unit">{{unit}}</span>
@@ -186,6 +184,7 @@ export default {
   .circle-container {
     position: relative;
     display: inline-block;
+    padding: 2px;
 
     .inner-text {
       width: 100%;
@@ -204,11 +203,13 @@ export default {
     display: table;
     color: #fff;
     font-size: 1em;
-    padding-left: 20px;
+    padding-left: 25px;
 
     .info-name {
       font-family: 'MicrosoftYaHei';
       font-size: 1.25rem;
+      display: block;
+      padding-bottom: 13px;
     }
 
     .already-have {

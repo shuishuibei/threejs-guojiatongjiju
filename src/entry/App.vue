@@ -3,14 +3,14 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-13 16:40:09
+ * @LastEditTime: 2019-12-14 18:54:06
  --> 
 <template>
   <div class="app-wrap">
     <div class="app-content">
       <header>
-        <img src="../assets/imgs/logo-img.png" width="35" height="35" style="margin-right: 10px" alt="标题img">
-        <img src="../assets/imgs/title-img.png" alt="标题img">
+        <!-- <img src="../assets/imgs/logo-img.png" width="42" height="42" style="margin-right: 14px" alt="标题img"> -->
+        <img src="../assets/imgs/title-img.png" width="20%" height="66%" alt="标题img">
       </header>
       <div class="app-middle-content">
         <div class="content-left">
@@ -27,23 +27,23 @@
                   主机数量
                 </div>
               </div>
-              <div class="contact-lines">..........</div>
+              <div class="contact-lines">................</div>
               <div class="power-con con-flag">
                 <div class="num-flag" style="color:#fdd912">298</div>
                 <div class="img-flag">
                   <img src="../assets/imgs/power-img.png" alt="power小机数量" width="65" height="65">
                 </div>
-                <div class="info-flag" style="width: 150%;">
+                <div class="info-flag" style="width:150%">
                   power小机数量
                 </div>
               </div>
-              <div class="contact-lines">..........</div>
+              <div class="contact-lines">................</div>
               <div class="bare-con con-flag">
-                <div class="num-flag" style="color:#02f235">298</div>
+                <div class="num-flag" style="color:#02f235;width:100%">298</div>
                 <div class="img-flag">
                   <img src="../assets/imgs/bare-metal-img.png" alt="裸金属数量" width="65" height="65">
                 </div>
-                <div class="info-flag">
+                <div class="info-flag" style="width:100%">
                   裸金属数量
                 </div>
               </div>
@@ -279,7 +279,7 @@ export default {
 </style>
 
 <style lang="less" scoped>
-@headerHeight: 6.5%;
+@headerHeight: 6.48%;
 @middleHeight: 73.5%;
 @bottomHeight: 20%;
 @useCount: 21px;
@@ -290,6 +290,8 @@ export default {
   @w: @width / @clientwidth*100;
   @h: @height / @clientheight*100;
 }
+@topTitle: calc(~'100% + 16%');
+
 @font-face {
   font-family: 'DS-Digital'; /*字体名称*/
   src: 
@@ -316,7 +318,7 @@ export default {
       width: 100%;
       height: @headerHeight;
       background: url('../assets/imgs/top-bg.png') center no-repeat;
-      background-size: 100% 100%;
+      background-size: 100% @topTitle;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -344,15 +346,23 @@ export default {
             justify-content: space-between;
 
             .contact-lines {
-              color: '#019cec';
+              width: 12.5%;
+              overflow: hidden;
+              text-align: center;
               display: flex;
-              align-items: center;
-              justify-content: center;
-              font-weight: 700;
+              color: #019cec;
+              // align-items: center;
+              padding-top: 30%;
+              // position: absolute;
+              // width: 80%;
+              // left: 100%;
+              // top: 30%;
+              // color: #019cec;
+              // overflow: hidden;
             }
-
             .con-flag {
               // width: 70px;
+              width: 25%;
               height: 100%;
               flex-direction: column;
               display: flex;
@@ -364,13 +374,14 @@ export default {
                 color: #05c9fb;
                 font-size: 2.5rem;
                 font-family: Fette-Engschrift;
-                // flex: 1;
-                // line-height: 3rem;
+                flex: 1;
+                line-height: 3rem;
                 text-align: center;
               }
 
               .img-flag {
                 flex: 1;
+                position: relative;
               }
 
               .info-flag {
@@ -379,16 +390,17 @@ export default {
                 font-family: 'MicrosoftYaHei';
                 flex: 1;
                 line-height: 2rem;
+                text-align: center;
               }
             }
 
             .power-con {
-              width: 70px;
+              // width: 70px;
               height: 100%;
             }
 
             .bare-con {
-              width: 70px;
+              // width: 70px;
               height: 100%;
             }
           }
