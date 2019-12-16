@@ -1,9 +1,9 @@
 /*
- * @Description
- * @Author ys1983/张睿博
- * @Date 2019-07-22 10:46:09
- * @LastEditors ys1983/张睿博
- * @LastEditTime 2019-10-29 10:42:51
+ * @Description:
+ * @Author: lys1626/刘芹芹
+ * @Date: 2019-12-04 10:30:32
+ * @LastEditors: lys1626/刘芹芹
+ * @LastEditTime: 2019-12-16 19:18:15
  */
 const path = require("path");
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
