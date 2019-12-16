@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-14 19:47:08
+ * @LastEditTime: 2019-12-16 19:10:26
  --> 
 <template>
   <div class="app-wrap">
@@ -19,7 +19,7 @@
             <use-title title="已用资源统计" height="21" unit=""></use-title>
             <div class="already-con">
               <div class="host-con con-flag">
-                <div class="host-num num-flag">298</div>
+                <div class="host-num num-flag">{{server}}</div>
                 <div class="host-img img-flag">
                   <img src="../assets/imgs/cloud-host-img.png" alt="主机数量" width="65" height="65">
                 </div>
@@ -29,7 +29,7 @@
               </div>
               <div class="contact-lines">................</div>
               <div class="power-con con-flag">
-                <div class="num-flag" style="color:#fdd912">298</div>
+                <div class="num-flag" style="color:#fdd912">{{powerServer}}</div>
                 <div class="img-flag">
                   <img src="../assets/imgs/power-img.png" alt="power小机数量" width="65" height="65">
                 </div>
@@ -39,7 +39,7 @@
               </div>
               <div class="contact-lines">................</div>
               <div class="bare-con con-flag">
-                <div class="num-flag" style="color:#02f235;width:100%">298</div>
+                <div class="num-flag" style="color:#02f235;width:100%">{{bareMetal}}</div>
                 <div class="img-flag">
                   <img src="../assets/imgs/bare-metal-img.png" alt="裸金属数量" width="65" height="65">
                 </div>
@@ -76,7 +76,7 @@
                     <span class="progress-bar-ratio">{{ item.value }}</span>
                   </div>
                   <div class="progress-bar-wrapper">
-                    <div class="progress-bar-already" :style="item.sty"></div>
+                    <div class="progress-bar-already" :style="{width: item.width}"></div>
                     <div class="progress-bar-total"></div>
                   </div>
                 </div>
@@ -98,7 +98,7 @@
               <usage-line-chart
                 flag-id="cpu-use-con"
                 line-color="#0397ff"
-                :series-data="CpuSeriesData"
+                :series-data="cpuUsedHistory"
                 name-flag="CPU使用量"
                 :row-data="CpuRowData"></usage-line-chart>
             </div>
@@ -110,7 +110,7 @@
               <usage-line-chart
                 line-color="#fdd912"
                 flag-id="memory-use-con"
-                :series-data="CpuSeriesData"
+                :series-data="memoryUsedHistory"
                 name-flag="内存使用量"
                 :row-data="CpuRowData">
               </usage-line-chart>
@@ -123,7 +123,7 @@
               <usage-line-chart
                 line-color="#02f235"
                 flag-id="storage-use-con"
-                :series-data="CpuSeriesData"
+                :series-data="storageUsedHistory"
                 name-flag="存储使用量"
                 :row-data="CpuRowData"></usage-line-chart>
             </div>
@@ -133,16 +133,31 @@
       <div class="app-bottom-content">
         <div class="circle-con" style="position: relative;padding-top: 3.5%;">
           <div style="position: absolute;left: 0; width: 21.4%">
-            <circle-process text-color="#05c9fb" :percent="50"></circle-process>
+            <circle-process
+              text-color="#05c9fb"
+              :percent="cpuPercent"
+              :all-have="cpuTotal"
+              :already-have="cpuUsed"
+              hard-name="CPU"></circle-process>
           </div>
           <div class="split-line-left"></div>
           <div style="width: 21.4%">
-            <circle-process text-color="#fdd912" :percent="40"></circle-process>
+            <circle-process
+              text-color="#fdd912"
+              :all-have="memoryUsed"
+              :already-have="memoryTotal"
+              :percent="memoryPercent"
+              hard-name="内存"></circle-process>
           </div>
           <div class="split-line-right">
           </div>
           <div style="position: absolute;right: -5px;width: 21.4%">
-            <circle-process text-color="#02f235" :percent="100"></circle-process>
+            <circle-process
+              text-color="#02f235"
+              :all-have="storageUsed"
+              :already-have="storageTotal"
+              :percent="storagePercent"
+              hard-name="存储"></circle-process>
           </div>
         </div>
       </div>
@@ -166,47 +181,31 @@ export default {
   },
   data() {
     return {
-      CpuSeriesData: [50, 10, 65, 90, 15, 55],
+      // cpu历史使用量
+      cpuUsedHistory: [],
       CpuRowData: ['11/23', '11/24', '11/25', '11/26', '11/27', '11/28'],
+      // 存储历史使用量
+      storageUsedHistory: [],
+      // 内存历史使用量
+      memoryUsedHistory: [],
       tenantTotal: 800,
       // 各租户拥有虚机数量Top5
-      hostTop5: [
-        {
-          title: '租户名称',
-          value: 240,
-          sty: {
-            width: '50%'
-          }
-        },
-        {
-          title: '租户名称',
-          value: 888,
-          sty: {
-            width: '50%'
-          }
-        },
-        {
-          title: '租户名称',
-          value: 240,
-          sty: {
-            width: '50%'
-          }
-        },
-        {
-          title: '租户名称',
-          value: 240,
-          sty: {
-            width: '50%'
-          }
-        },
-        {
-          title: '租户名称',
-          value: 240,
-          sty: {
-            width: '50%'
-          }
-        }
-      ]
+      hostTop5: [],
+      // 裸金属数量
+      bareMetal: 0,
+      // power小机数量
+      powerServer: 0,
+      // 主机数量
+      server: 0,
+      cpuPercent: 0,
+      memoryPercent: 0,
+      storagePercent: 0,
+      cpuUsed: 0,
+      cpuTotal: 0,
+      memoryUsed: 0,
+      memoryTotal: 0,
+      storageUsed: 0,
+      storageTotal: 0
     };
   },
   methods: {
@@ -222,6 +221,49 @@ export default {
   },
   mounted() {
     this.init();
+    this.$http.get(window.origin + '/api/area').then(response => {
+      response = response.data.data;
+      if (!response.isActive) {
+        // 请求后端数据
+        this.$http.get('/view/zh/count').then(({ data }) => {
+          this.tenantTotal = data.data.tenant; // 平台租户总量
+          this.hostTop5 = data.data.tenantServer; // 平台租户数据
+          this.bareMetal = data.data.bareMetal;
+          this.powerServer = data.data.powerServer;
+          this.server = data.data.server;
+          this.cpuUsedHistory = data.data.cpuUsedHistory;
+          this.storageUsedHistory = data.data.storageUsedHistory;
+          this.memoryUsedHistory = data.data.memoryUsedHistory;
+          this.cpuPercent = data.data.cpuUsed / data.data.cpuTotal;
+          this.cpuUsed = data.data.cpuUsed;
+          this.cpuTotal = data.data.cpuTotal;
+          this.memoryPercent = data.data.memoryUsed / data.data.memoryTotal;
+          this.memoryUsed = data.data.memoryUsed;
+          this.memoryTotal = data.data.memoryTotal;
+          this.storagePercent = data.data.storageUsed / data.data.storageTotal;
+          this.storageUsed = data.data.storageUsed;
+          this.storageTotal = data.data.storageTotal;
+        });
+      } else {
+        // this.tenantTotal = response.tenant; // 平台租户总量
+        // this.hostTop5 = response.tenantServer; // 平台租户数据
+        // this.bareMetal = response.bareMetal;
+        // this.powerServer = response.powerServer;
+        // this.server = response.server;
+        // this.cpuUsedHistory = response.cpuUsedHistory;
+        // this.storageUsedHistory = response.storageUsedHistory;
+        // this.memoryUsedHistory = response.memoryUsedHistory;
+        // this.cpuPercent = response.cpuUsed / response.cpuTotal;
+        // this.cpuUsed = response.cpuUsed;
+        // this.cpuTotal = response.cpuTotal;
+        // this.memoryPercent = response.memoryUsed / response.memoryTotal;
+        // this.memoryUsed = response.memoryUsed;
+        // this.memoryTotal = response.memoryTotal;
+        // this.storagePercent = response.storageUsed / response.storageTotal;
+        // this.storageUsed = response.storageUsed;
+        // this.storageTotal = response.storageTotal;
+      }
+    });
   },
   computed: {
     getBarWidth(value) {

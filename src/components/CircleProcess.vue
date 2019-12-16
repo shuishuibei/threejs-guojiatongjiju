@@ -3,62 +3,32 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-14 18:03:46
+ * @LastEditTime: 2019-12-16 18:55:48
  -->
 <template>
   <div class="hard-ware-con" style="width:100%">
-    <div class="circle-container" style="width:50%;height:100%">
-      <svg viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg">
-        <path d="M 50,50 m 0,-46
-                a 46,46 0 1 1 0,92
-                a 46,46 0 1 1 0,-92" stroke="#023d7f" stroke-width="8.5" fill-opacity="0" stroke-linecap="round"></path>
-        <!-- <path d="M 50,50 m 0,-46
-                a 46,46 0 1 1 0,92
-                a 46,46 0 1 1 0,-92"
-          stroke-linecap="round"
-          :stroke="shadowStrokeColor"
-          stroke-width="11"
-          fill-opacity="0"
-          :style="pathStyle"></path> -->
-        <!-- <path d="M 50,50 m 0,-46
-                a 46,46 0 1 1 0,92
-                a 46,46 0 1 1 0,-92"
-        stroke-linecap="round"
-        stroke="#2d8cf0"
-        stroke-width="8"
-        fill-opacity="0"
-        style="stroke-dasharray: 289.027px, 289.027px; stroke-dashoffset: 57.8053px;
-                 transition: stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease 0s;"></path> -->
-        <path d="M 50,50 m 0,-46
-                a 46,46 0 1 1 0,92
-                a 46,46 0 1 1 0,-92"
-          stroke-linecap="round"
-          :stroke="color"
-          stroke-width="8.5"
-          fill-opacity="0"
-          :style="pathStyle"></path>
-      </svg>
-      <div class="inner-text">
-        <span style="color: #fff;
-          font-size: 3rem; 
-          font-family: Fette-Engschrift;">
-          {{percent}}
+    <div class="circle-container">
+      <i-circle
+        :size="size"
+        :percent="percent"
+        trail-color="#023d7f"
+        :trail-width="8.5"
+        :stroke-color="color"
+        :stroke-width="8.5">
+        <span class="demo-Circle-inner">{{showPercent}}
+          <span class="demo-Circle-inner-icon">%</span>
         </span>
-        <span style="color: #fff;
-        font-size: 1.875rem; 
-        font-family: Fette-Engschrift;">
-          %
-        </span>
-      </div>
+      </i-circle>
     </div>
     <!-- 硬件信息 -->
-    <div class="hard-ware-info" style="width:50%;height:100%">
+    <div class="hard-ware-info">
       <div style="display: table-cell;vertical-align: middle;">
         <span class="info-name" :style="{color: textColor}">{{hardName}}</span>
-        <span class="already-have" :style="{color: textColor}">{{alreadyHave}}</span>
-        <span class="all-have">/{{allHave}}</span>
-        <span class="unit">{{unit}}</span>
+        <span class="clip-text" :style="hardSty" :title="settitle(alreadyHave,allHave,unit)">
+          <span class="already-have" :style="{color: textColor}">{{alreadyHave}}</span>
+          <span class="all-have">/{{allHave}}</span>
+          <span class="unit">{{unit}}</span>
+        </span>
       </div>
     </div>
   </div>
@@ -76,19 +46,11 @@ export default {
     },
     size: {
       type: Number,
-      default: 100
-    },
-    strokeWidth: {
-      type: Number,
-      default: 6
+      default: 105
     },
     color: {
       type: [String, Array],
       default: '#3be5fe'
-    },
-    shadowColor: {
-      type: [String, Array],
-      default: '#0366fb'
     },
     hardName: {
       type: [String],
@@ -121,49 +83,18 @@ export default {
   },
   methods: {},
   computed: {
-    shadowStrokeColor() {
-      return this.color.colorRgba(0.2);
+    showPercent() {
+      return (this.percent * 100).toFixed(1);
     },
-    // 原形进度条大小
-    circleSize() {
+    hardSty() {
       return {
-        width: `${this.size}px`,
-        height: `${this.size}px`
+        width: `${200 - this.size}px`
       };
     },
-    // 进度条旁边提示信息大小
-    hardSize() {
-      return {
-        width: `${200 - this.size}px`,
-        height: `${this.size}px`
+    settitle(val1, val2, val3) {
+      return (val1, val2, val3) => {
+        return val1 + '/' + val2 + val3;
       };
-    },
-    // 半径
-    radius() {
-      return 50 - this.strokeWidth / 2;
-    },
-    len() {
-      return Math.PI * 2 * this.radius;
-    },
-    pathStyle() {
-      let style = {};
-      if (this.dashboard) {
-        style = {
-          'stroke-dasharray': `${(this.percent / 100) * (this.len - 75)}px ${
-            this.len
-          }px`,
-          'stroke-dashoffset': `-${75 / 2}px`,
-          transition:
-            'stroke-dashoffset .3s ease 0s, stroke-dasharray .6s ease 0s, stroke .6s, stroke-width .06s ease .6s'
-        };
-      } else {
-        style = {
-          'stroke-dasharray': `${this.len}px ${this.len}px`,
-          'stroke-dashoffset': `${((100 - this.percent) / 100) * this.len}px`,
-          transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'
-        };
-      }
-      return style;
     }
   }
 };
@@ -177,6 +108,16 @@ export default {
     format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
 
+.demo-Circle-inner {
+  color: #fff;
+  font-size: 3rem;
+  font-family: Fette-Engschrift;
+}
+
+.demo-Circle-inner-icon {
+  font-size: 1.875rem;
+}
+
 .hard-ware-con {
   width: 200px;
   position: relative;
@@ -184,22 +125,14 @@ export default {
   .circle-container {
     position: relative;
     display: inline-block;
-    padding: 2px;
-
-    .inner-text {
-      width: 100%;
-      text-align: center;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
   }
 
   .hard-ware-info {
+    height: 100%;
     position: absolute;
     top: 0;
-    right: 0;
+    // right: 0;
+    left: 100px;
     display: table;
     color: #fff;
     font-size: 1em;
@@ -212,6 +145,12 @@ export default {
       padding-bottom: 13px;
     }
 
+    .clip-text {
+      display: inline-block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
     .already-have {
       font-family: Fette-Engschrift;
       font-size: 2.5rem;

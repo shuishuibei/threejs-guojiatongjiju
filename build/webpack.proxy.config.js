@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:32
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-14 19:39:42
+ * @LastEditTime: 2019-12-16 15:53:03
  */
 const webpackConfig = require("./webpack.common.config"); // 引入公共的的配置文件
 const merge = require("webpack-merge"); // 用来合并和覆盖相同配置项的插件
@@ -29,7 +29,7 @@ const devWebpackConfig = merge(webpackConfig, {
     }),
     new webpack.DefinePlugin({
       // 跨域,一定要用JSON.stringify方法来转成字符串 否则会报错
-      SERVICE_URL: JSON.stringify("http://192.168.100.47:8080/")
+      SERVICE_URL: JSON.stringify("http://localhost:9000/")
     })
   ]
 });
