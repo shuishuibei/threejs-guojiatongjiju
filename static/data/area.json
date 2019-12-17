@@ -1,0 +1,49 @@
+{
+  "isActive": false,
+  "data": {
+    "bareMetal": 0,
+    "cpuTotal": 0,
+    "cpuUnit": "核",
+    "cpuUsed": 0,
+    "cpuUsedHistory": [1, 2, 3, 4, 5, 6],
+    "historyDays": ["12/12", "12/13", "12/14", "12/15", "12/16", "12/17"],
+    "memoryTotal": 0,
+    "memoryUnit": "GB",
+    "memoryUsed": 0,
+    "memoryUsedHistory": [1, 2, 3, 4, 5, 6],
+    "powerServer": 99999,
+    "server": 6,
+    "storageTotal": 0,
+    "storageUnit": "TB",
+    "storageUsed": 0,
+    "storageUsedHistory": [1, 2, 3, 4, 5, 6],
+    "tenant": 7,
+    "tenantServer": [
+      {
+        "width": "100%",
+        "title": "资源勘查事业部",
+        "value": 4
+      },
+      {
+        "width": "0%",
+        "title": "北京产投",
+        "value": 0
+      },
+      {
+        "width": "0%",
+        "title": "cjqtest01",
+        "value": 0
+      },
+      {
+        "width": "0%",
+        "title": "青岛事业部",
+        "value": 0
+      },
+      {
+        "width": "0%",
+        "title": "中华事业部",
+        "value": 0
+      }
+    ]
+  }
+}

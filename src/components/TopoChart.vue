@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-09 15:38:51
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-14 16:03:20
+ * @LastEditTime: 2019-12-17 17:51:53
  -->
 <template>
   <div class="topo-chart-container">
@@ -392,7 +392,7 @@ export default {
      * @function: initData
      * @description: 初始化光点移动数据
      * @param {type}
-     * @returns: {void}
+     * @returns: {Object} option
      */
     initData() {
       let option = _.cloneDeep(this.topoChartOption);
@@ -427,6 +427,12 @@ export default {
         container.appendChild(node);
       });
     },
+    /**
+     * @function: initChart
+     * @description: 初始化数据
+     * @param {type}
+     * @returns: {void}
+     */
     initChart() {
       let data = this.initData();
       this.topoChartNode.setOption(data);

@@ -3,11 +3,12 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 10:24:12
+ * @LastEditTime: 2019-12-17 17:52:46
  -->
 <template>
   <div :id="flagId" style="width:100%;height:100%"></div>
 </template>
+
 <script>
 import _ from 'lodash';
 import colorChange from '@/assets/js/color-change.js';
@@ -19,12 +20,14 @@ export default {
   props: {
     seriesData: {
       type: [Object, Array],
-      required: true
+      required: true,
+      default: [1, 2, 3, 4, 5, 6]
     },
     // x轴刻度数据
     rowData: {
       type: [Object, Array],
-      required: true
+      required: true,
+      default: ['12/12', '12/13', '12/14', '12/15', '12/16', '12/17']
     },
     // 父节点id
     flagId: {
@@ -54,7 +57,6 @@ export default {
         },
         tooltip: {
           trigger: 'axis',
-          //formatter: '{b}月份<br/>活跃用户数：{c}',
           formatter: params => {
             if (params[0].color == '#0397ff') {
               return (
@@ -94,7 +96,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          boundaryGap: false, //坐标轴两边留白策略
+          boundaryGap: false, // 坐标轴两边留白策略
           data: [],
           axisLine: {
             show: false,
@@ -277,7 +279,6 @@ export default {
     }
   },
   mounted() {
-    // this.init();
     on(window, 'resize', this.handleResize);
   },
   beforeDestroy() {

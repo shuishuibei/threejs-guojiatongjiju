@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 10:33:29
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-12 10:14:56
+ * @LastEditTime: 2019-12-17 17:52:37
  -->
 <template>
   <div class="title-wrapper" :style="{height: height + 'px'}">
@@ -12,6 +12,7 @@
     <div class="unit-text">{{unit}}</div>
   </div>
 </template> 
+
 <script>
 import titleImg from '@/assets/imgs/title-icon.png';
 

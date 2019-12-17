@@ -3,11 +3,11 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-17 14:08:09
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 14:10:17
+ * @LastEditTime: 2019-12-17 17:03:54
  -->
 <template>
   <div class="loader">
-    <i-icon type="ios-loading" :size="40" class="full-icon-load"></i-icon>
+    <Icon type="ios-loading" :size="40" class="full-icon-load"></Icon>
     <div>Loading</div>
   </div>
 </template>

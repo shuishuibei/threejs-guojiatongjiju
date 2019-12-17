@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-16 18:55:48
+ * @LastEditTime: 2019-12-17 17:50:59
  -->
 <template>
   <div class="hard-ware-con" style="width:100%">
@@ -33,6 +33,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import colorChange from '@/assets/js/color-change.js';
 
@@ -40,34 +41,42 @@ export default {
   name: 'CircleProcess',
   mixins: [colorChange],
   props: {
+    // 进度圆百分比
     percent: {
       type: Number,
       default: 50
     },
+    // 圆的大小
     size: {
       type: Number,
       default: 105
     },
+    // 进度颜色
     color: {
       type: [String, Array],
       default: '#3be5fe'
     },
+    // 信息名
     hardName: {
       type: [String],
       default: 'CPU'
     },
+    // 已经使用
     alreadyHave: {
       type: [Number],
       default: 0
     },
+    // 总量
     allHave: {
       type: [Number],
       default: 0
     },
+    // 单位
     unit: {
       type: String,
       default: '核'
     },
+    // 文本颜色
     textColor: {
       type: String,
       default: '#05c9fb'
@@ -81,16 +90,35 @@ export default {
       }
     };
   },
-  methods: {},
   computed: {
+    /**
+     * @function: showPercent
+     * @description: 进度条百分比
+     * @param {type}
+     * @returns: {String} percent
+     */
     showPercent() {
       return (this.percent * 100).toFixed(1);
     },
+    /**
+     * @function: hardSty
+     * @description: 信息区域大小
+     * @param {type}
+     * @returns: {Object}
+     */
     hardSty() {
       return {
         width: `${200 - this.size}px`
       };
     },
+    /**
+     * @function: settitle
+     * @description: 设置提示信息
+     * @param {String} val1 已用
+     * @param {String} val2 全部量
+     * @param {String} val3 %
+     * @returns: {void}
+     */
     settitle(val1, val2, val3) {
       return (val1, val2, val3) => {
         return val1 + '/' + val2 + val3;

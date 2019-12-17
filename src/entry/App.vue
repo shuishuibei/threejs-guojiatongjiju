@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 15:41:45
+ * @LastEditTime: 2019-12-17 17:45:03
  --> 
 <template>
   <div class="app-wrap">
@@ -184,13 +184,10 @@ export default {
   },
   data() {
     return {
-      // cpu历史使用量
-      cpuUsedHistory: [1, 2, 3, 4, 5, 6],
+      cpuUsedHistory: [1, 2, 3, 4, 5, 6], // cpu历史使用量
       historyDays: ['12/12', '12/13', '12/14', '12/15', '12/16', '12/17'],
-      // 存储历史使用量
-      storageUsedHistory: [1, 2, 3, 4, 5, 6],
-      // 内存历史使用量
-      memoryUsedHistory: [1, 2, 3, 4, 5, 6],
+      storageUsedHistory: [1, 2, 3, 4, 5, 6], // 存储历史使用量
+      memoryUsedHistory: [1, 2, 3, 4, 5, 6], // 内存历史使用量
       tenantTotal: 800,
       // 各租户拥有虚机数量Top5
       hostTop5: [
@@ -220,22 +217,14 @@ export default {
           width: '100%'
         }
       ],
-      // 裸金属数量
-      bareMetal: 0,
-      // power小机数量
-      powerServer: 0,
-      // 主机数量
-      server: 0,
-      // cpu百分比
-      cpuPercent: 0,
-      // memory百分比
-      memoryPercent: 0,
-      // storage百分比
-      storagePercent: 0,
-      // cpu已使用量
-      cpuUsed: 0,
-      // cpu总量
-      cpuTotal: 0,
+      bareMetal: 0, // 裸金属数量
+      powerServer: 0, // power小机数量
+      server: 0, // 主机数量
+      cpuPercent: 0, // cpu百分比
+      memoryPercent: 0, // memory百分比
+      storagePercent: 0, // storage百分比
+      cpuUsed: 0, // cpu已使用量
+      cpuTotal: 0, // cpu总量
       memoryUsed: 0,
       memoryTotal: 0,
       storageUsed: 0,
@@ -246,6 +235,12 @@ export default {
     };
   },
   methods: {
+    /**
+     * @function: init
+     * @description: 获取本地数据
+     * @param {type}
+     * @returns: {void}
+     */
     init() {
       return new Promise((resolve, reject) => {
         this.$http.get(window.origin + '/api/area').then(response => {
@@ -334,6 +329,12 @@ export default {
     }
   },
   mounted() {
+    /**
+     * @function: getData
+     * @description: 获取大屏数据
+     * @param {type}
+     * @returns: {void}
+     */
     this.getData();
   },
   computed: {

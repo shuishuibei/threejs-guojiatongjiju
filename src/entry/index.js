@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 15:07:16
+ * @LastEditTime: 2019-12-17 17:41:29
  */
 import Vue from "vue";
 import axios from "axios";
@@ -15,6 +15,7 @@ import Loading from "@/components/h3c-loading/H3cLoading.vue";
 import "@/assets/css/reset.css";
 import "iview/dist/styles/iview.css";
 import routes from "@/router/index.js";
+
 Vue.use(Iview);
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -27,6 +28,8 @@ let axiosIns = axios.create(
   process.env.NODE_ENV === "development" ? { baseURL: SERVICE_URL } : {}
 );
 Vue.prototype.$http = axiosIns;
+axiosIns.defaults.withCredentials = true;
+
 Vue.prototype.$loading = {
   show(_this) {
     _this.$Spin.show({
@@ -39,6 +42,7 @@ Vue.prototype.$loading = {
     _this.$Spin.hide();
   }
 };
+
 const vm = new Vue({
   el: "#app",
   router
