@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:32
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-16 19:18:15
+ * @LastEditTime: 2019-12-17 15:33:03
  */
 const path = require("path");
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -191,8 +191,9 @@ const webpackCommon = {
     before(app) {
       app.get("/api/area", (reg, res) => {
         res.json({
+          errno: 0,
           data: appData
-        }); // 接口返回json数据，上面配置的数据seller就复制给data请求后调用
+        }); // 接口返回json数据
       });
     }
   }

@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-16 19:10:26
+ * @LastEditTime: 2019-12-17 15:41:45
  --> 
 <template>
   <div class="app-wrap">
@@ -100,7 +100,7 @@
                 line-color="#0397ff"
                 :series-data="cpuUsedHistory"
                 name-flag="CPU使用量"
-                :row-data="CpuRowData"></usage-line-chart>
+                :row-data="historyDays"></usage-line-chart>
             </div>
           </div>
           <!-- 内存历史使用量 -->
@@ -112,7 +112,7 @@
                 flag-id="memory-use-con"
                 :series-data="memoryUsedHistory"
                 name-flag="内存使用量"
-                :row-data="CpuRowData">
+                :row-data="historyDays">
               </usage-line-chart>
             </div>
           </div>
@@ -125,7 +125,7 @@
                 flag-id="storage-use-con"
                 :series-data="storageUsedHistory"
                 name-flag="存储使用量"
-                :row-data="CpuRowData"></usage-line-chart>
+                :row-data="historyDays"></usage-line-chart>
             </div>
           </div>
         </div>
@@ -134,6 +134,7 @@
         <div class="circle-con" style="position: relative;padding-top: 3.5%;">
           <div style="position: absolute;left: 0; width: 21.4%">
             <circle-process
+              :unit="cpuUnit"
               text-color="#05c9fb"
               :percent="cpuPercent"
               :all-have="cpuTotal"
@@ -143,6 +144,7 @@
           <div class="split-line-left"></div>
           <div style="width: 21.4%">
             <circle-process
+              :unit="memoryUnit"
               text-color="#fdd912"
               :all-have="memoryUsed"
               :already-have="memoryTotal"
@@ -153,6 +155,7 @@
           </div>
           <div style="position: absolute;right: -5px;width: 21.4%">
             <circle-process
+              :unit="storageUnit"
               text-color="#02f235"
               :all-have="storageUsed"
               :already-have="storageTotal"
@@ -182,93 +185,158 @@ export default {
   data() {
     return {
       // cpu历史使用量
-      cpuUsedHistory: [],
-      CpuRowData: ['11/23', '11/24', '11/25', '11/26', '11/27', '11/28'],
+      cpuUsedHistory: [1, 2, 3, 4, 5, 6],
+      historyDays: ['12/12', '12/13', '12/14', '12/15', '12/16', '12/17'],
       // 存储历史使用量
-      storageUsedHistory: [],
+      storageUsedHistory: [1, 2, 3, 4, 5, 6],
       // 内存历史使用量
-      memoryUsedHistory: [],
+      memoryUsedHistory: [1, 2, 3, 4, 5, 6],
       tenantTotal: 800,
       // 各租户拥有虚机数量Top5
-      hostTop5: [],
+      hostTop5: [
+        {
+          title: '1',
+          value: 5,
+          width: '100%'
+        },
+        {
+          title: '1',
+          value: 5,
+          width: '100%'
+        },
+        {
+          title: '1',
+          value: 5,
+          width: '100%'
+        },
+        {
+          title: '1',
+          value: 5,
+          width: '100%'
+        },
+        {
+          title: '1',
+          value: 5,
+          width: '100%'
+        }
+      ],
       // 裸金属数量
       bareMetal: 0,
       // power小机数量
       powerServer: 0,
       // 主机数量
       server: 0,
+      // cpu百分比
       cpuPercent: 0,
+      // memory百分比
       memoryPercent: 0,
+      // storage百分比
       storagePercent: 0,
+      // cpu已使用量
       cpuUsed: 0,
+      // cpu总量
       cpuTotal: 0,
       memoryUsed: 0,
       memoryTotal: 0,
       storageUsed: 0,
-      storageTotal: 0
+      storageTotal: 0,
+      cpuUnit: '核',
+      storageUnit: 'TB',
+      memoryUnit: 'GB'
     };
   },
   methods: {
-    init() {},
-    setProgressBar(obj) {
-      let der = ((obj.value / this.tenantTotal) * 100).toFixed(2);
-      if (der > 100) {
-        obj.sty.width = '100%';
-      } else {
-        obj.sty.width = der + '%';
-      }
+    init() {
+      return new Promise((resolve, reject) => {
+        this.$http.get(window.origin + '/api/area').then(response => {
+          resolve(response.data);
+        });
+      });
+    },
+    getData() {
+      this.$loading.show(this);
+      this.init().then(res => {
+        let resData = res.data;
+        if (res.errno == 0) {
+          if (!resData.isActive) {
+            this.$loading.show(this);
+            this.$http.get('/view/zh/count').then(({ data }) => {
+              if (data.status) {
+                this.tenantTotal = data.data.tenant; // 平台租户总量
+                this.hostTop5 = data.data.tenantServer; // 平台租户数据
+                this.bareMetal = data.data.bareMetal;
+                this.powerServer = data.data.powerServer;
+                this.server = data.data.server;
+                this.cpuUsedHistory = data.data.cpuUsedHistory;
+                this.storageUsedHistory = data.data.storageUsedHistory;
+                this.memoryUsedHistory = data.data.memoryUsedHistory;
+                this.cpuPercent =
+                  data.data.cpuUsed / data.data.cpuTotal
+                    ? data.data.cpuUsed / data.data.cpuTotal
+                    : 0;
+                this.cpuUsed = data.data.cpuUsed;
+                this.cpuTotal = data.data.cpuTotal;
+                this.memoryPercent =
+                  data.data.memoryUsed / data.data.memoryTotal
+                    ? data.data.memoryUsed / data.data.memoryTotal
+                    : 0;
+                this.memoryUsed = data.data.memoryUsed;
+                this.memoryTotal = data.data.memoryTotal;
+                this.storagePercent =
+                  data.data.storageUsed / data.data.storageTotal
+                    ? data.data.storageUsed / data.data.storageTotal
+                    : 0;
+                this.storageUsed = data.data.storageUsed;
+                this.storageTotal = data.data.storageTotal;
+                this.historyDays = data.data.historyDays;
+                this.cpuUnit = data.data.cpuUnit;
+                this.storageUnit = data.data.storageUnit;
+                this.memoryUnit = data.data.memoryUnit;
+              }
+              this.$loading.hide(this);
+            });
+          } else {
+            this.$loading.hide(this);
+            this.tenantTotal = resData.data.tenant; // 平台租户总量
+            this.hostTop5 = resData.data.tenantServer; // 平台租户数据
+            this.bareMetal = resData.data.bareMetal;
+            this.powerServer = resData.data.powerServer;
+            this.server = resData.data.server;
+            this.cpuUsedHistory = resData.data.cpuUsedHistory;
+            this.storageUsedHistory = resData.data.storageUsedHistory;
+            this.memoryUsedHistory = resData.data.memoryUsedHistory;
+            this.cpuPercent =
+              resData.data.cpuUsed / resData.data.cpuTotal
+                ? resData.data.cpuUsed / resData.data.cpuTotal
+                : 0;
+            this.cpuUsed = resData.data.cpuUsed;
+            this.cpuTotal = resData.data.cpuTotal;
+            this.memoryPercent =
+              resData.data.memoryUsed / resData.data.memoryTotal
+                ? resData.data.memoryUsed / resData.data.memoryTotal
+                : 0;
+            this.memoryUsed = resData.data.memoryUsed;
+            this.memoryTotal = resData.data.memoryTotal;
+            this.storagePercent =
+              resData.data.storageUsed / resData.data.storageTotal
+                ? resData.data.storageUsed / resData.data.storageTotal
+                : 0;
+            this.storageUsed = resData.data.storageUsed;
+            this.storageTotal = resData.data.storageTotal;
+            this.historyDays = resData.data.historyDays;
+            this.cpuUnit = resData.data.cpuUnit;
+            this.storageUnit = resData.data.storageUnit;
+            this.memoryUnit = resData.data.memoryUnit;
+          }
+        }
+        this.$loading.hide(this);
+      });
     }
   },
   mounted() {
-    this.init();
-    this.$http.get(window.origin + '/api/area').then(response => {
-      response = response.data.data;
-      if (!response.isActive) {
-        // 请求后端数据
-        this.$http.get('/view/zh/count').then(({ data }) => {
-          this.tenantTotal = data.data.tenant; // 平台租户总量
-          this.hostTop5 = data.data.tenantServer; // 平台租户数据
-          this.bareMetal = data.data.bareMetal;
-          this.powerServer = data.data.powerServer;
-          this.server = data.data.server;
-          this.cpuUsedHistory = data.data.cpuUsedHistory;
-          this.storageUsedHistory = data.data.storageUsedHistory;
-          this.memoryUsedHistory = data.data.memoryUsedHistory;
-          this.cpuPercent = data.data.cpuUsed / data.data.cpuTotal;
-          this.cpuUsed = data.data.cpuUsed;
-          this.cpuTotal = data.data.cpuTotal;
-          this.memoryPercent = data.data.memoryUsed / data.data.memoryTotal;
-          this.memoryUsed = data.data.memoryUsed;
-          this.memoryTotal = data.data.memoryTotal;
-          this.storagePercent = data.data.storageUsed / data.data.storageTotal;
-          this.storageUsed = data.data.storageUsed;
-          this.storageTotal = data.data.storageTotal;
-        });
-      } else {
-        // this.tenantTotal = response.tenant; // 平台租户总量
-        // this.hostTop5 = response.tenantServer; // 平台租户数据
-        // this.bareMetal = response.bareMetal;
-        // this.powerServer = response.powerServer;
-        // this.server = response.server;
-        // this.cpuUsedHistory = response.cpuUsedHistory;
-        // this.storageUsedHistory = response.storageUsedHistory;
-        // this.memoryUsedHistory = response.memoryUsedHistory;
-        // this.cpuPercent = response.cpuUsed / response.cpuTotal;
-        // this.cpuUsed = response.cpuUsed;
-        // this.cpuTotal = response.cpuTotal;
-        // this.memoryPercent = response.memoryUsed / response.memoryTotal;
-        // this.memoryUsed = response.memoryUsed;
-        // this.memoryTotal = response.memoryTotal;
-        // this.storagePercent = response.storageUsed / response.storageTotal;
-        // this.storageUsed = response.storageUsed;
-        // this.storageTotal = response.storageTotal;
-      }
-    });
+    this.getData();
   },
   computed: {
-    getBarWidth(value) {
-      return value / this.tenantTotal;
-    },
     /**
      * @function: noColorSty
      * @description: Top5区分颜色

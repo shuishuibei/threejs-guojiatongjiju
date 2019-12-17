@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-14 19:58:57
+ * @LastEditTime: 2019-12-17 10:24:12
  -->
 <template>
   <div :id="flagId" style="width:100%;height:100%"></div>
@@ -268,8 +268,8 @@ export default {
     },
     setData() {
       let option = _.cloneDeep(this.useChartOption);
-      option.series[0].data = this.seriesData;
       option.xAxis.data = this.rowData;
+      option.series[0].data = this.seriesData;
       return option;
     },
     handleResize() {
@@ -277,11 +277,19 @@ export default {
     }
   },
   mounted() {
-    this.init();
+    // this.init();
     on(window, 'resize', this.handleResize);
   },
   beforeDestroy() {
     off(window, 'resize', this.handleResize);
+  },
+  watch: {
+    rowData(newVal) {
+      if (newVal) {
+        this.init();
+      }
+    },
+    deep: true
   }
 };
 </script>
