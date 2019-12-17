@@ -1,9 +1,9 @@
 <!--
- * @Description: 
+ * @Description:
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 17:50:59
+ * @LastEditTime: 2019-12-17 20:18:50
  -->
 <template>
   <div class="hard-ware-con" style="width:100%">
@@ -130,9 +130,16 @@ export default {
 
 <style lang="less" scoped>
 @font-face {
+  font-family: 'DS-Digital'; /*字体名称*/
+  src:
+      /* IE6-IE8 */ url('../assets/font/DS-Digital.ttf')
+    format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+}
+
+@font-face {
   font-family: 'Fette-Engschrift'; /*字体名称*/
   src:
-    /* IE6-IE8 */ url('../assets/font/Fette-Engschrift.ttf')
+      /* IE6-IE8 */ url('../assets/font/Fette-Engschrift.ttf')
     format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
 

@@ -3,14 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:32
  * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 15:54:31
- */
-/*
- * @Description
- * @Author ys1983/张睿博
- * @Date 2018-11-30 11:41:17
- * @LastEditors ys1983/张睿博
- * @LastEditTime 2018-11-30 11:41:17
+ * @LastEditTime: 2019-12-17 19:04:20
  */
 const webpackConfig = require("./webpack.common.config");
 const merge = require("webpack-merge");
@@ -34,7 +27,7 @@ const proWebpackConfig = merge(webpackConfig, {
     }),
     new MiniCssExtractPlugin({
       filename: "style.css",
-      chunkFilename: "static/styles/[name].css"
+      chunkFilename: "styles/[name].css"
     }),
     new OptimizeCSSPlugin() // 压缩css
   ]
