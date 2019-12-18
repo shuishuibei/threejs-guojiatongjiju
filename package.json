@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production --config build/webpack.prod.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config build/webpack.dev.config.js --open",
-    "proxy": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config build/webpack.proxy.config.js --open --host 192.168.100.47 --port 8082",
+    "proxy": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config build/webpack.proxy.config.js --open --port 8082",
     "node": "cross-env  NODE_ENV=production"
   },
   "lint-staged": {
