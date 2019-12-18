@@ -1,17 +1,22 @@
 /*
- * @Description
- * @Author ys1983/张睿博
- * @Date 2019-10-29 10:29:09
- * @LastEditors ys1983/张睿博
- * @LastEditTime 2019-11-07 10:38:56
+ * @Description:
+ * @Author: lys1626/刘芹芹
+ * @Date: 2019-12-04 10:30:59
+ * @LastEditors: lys1626/刘芹芹
+ * @LastEditTime: 2019-12-17 17:41:29
  */
 import Vue from "vue";
 import axios from "axios";
 import Echarts from "echarts"; //引入echarts
 import VueRouter from "vue-router";
+import Iview from "iview";
+import Loading from "@/components/h3c-loading/H3cLoading.vue";
 
 import "@/assets/css/reset.css";
+import "iview/dist/styles/iview.css";
 import routes from "@/router/index.js";
+
+Vue.use(Iview);
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes: [routes]
@@ -20,15 +25,26 @@ const router = new VueRouter({
 Vue.prototype.$echarts = Echarts;
 /* eslint-disable */
 let axiosIns = axios.create(
-  process.env.NODE_ENV === "development"
-    ? {
-        baseURL: SERVICE_URL
-      }
-    : {}
+  process.env.NODE_ENV === "development" ? { baseURL: SERVICE_URL } : {}
 );
 Vue.prototype.$http = axiosIns;
+axiosIns.defaults.withCredentials = true;
+
+Vue.prototype.$loading = {
+  show(_this) {
+    _this.$Spin.show({
+      render: h => {
+        return h(Loading);
+      }
+    });
+  },
+  hide(_this) {
+    _this.$Spin.hide();
+  }
+};
+
 const vm = new Vue({
   el: "#app",
   router
 });
-/* eslint-enable */
+/* eslint-disable */

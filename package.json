@@ -1,12 +1,12 @@
 {
   "name": "gdgf-screen",
   "version": "1.0.0",
-  "description": "广东高法大屏",
+  "description": "国家统计局大屏",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=production --config ./build/webpack.prod.config.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config ./build/webpack.dev.config.js --open",
-    "proxy": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config ./build/webpack.proxy.config.js --open --port 8082",
+    "build": "webpack --mode=production --config build/webpack.prod.config.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config build/webpack.dev.config.js --open",
+    "proxy": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config build/webpack.proxy.config.js --open --port 8082",
     "node": "cross-env  NODE_ENV=production"
   },
   "lint-staged": {
@@ -72,6 +72,7 @@
     "@babel/polyfill": "^7.6.0",
     "axios": "^0.18.1",
     "echarts": "^4.4.0",
+    "iview": "^3.5.4",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3"
   }
