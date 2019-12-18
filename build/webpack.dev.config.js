@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: lys1626/刘芹芹
+ * @Date: 2019-12-04 10:30:32
+ * @LastEditors: lys1626/刘芹芹
+ * @LastEditTime: 2019-12-18 10:06:30
+ */
 const webpackConfig = require("./webpack.common.config"); // 引入公共的的配置文件
 const merge = require("webpack-merge"); // 用来合并和覆盖相同配置项的插件
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -20,7 +27,7 @@ const devWebpackConfig = merge(webpackConfig, {
       chunkFilename: "styles/[name].css" // 打包完文件的存放地址
     }),
     new webpack.DefinePlugin({
-      SERVICE_URL: JSON.stringify("http://localhost:9000/")
+      SERVICE_URL: JSON.stringify("http://192.168.100.47:9000/")
     })
   ]
 });

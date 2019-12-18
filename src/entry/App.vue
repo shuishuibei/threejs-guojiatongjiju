@@ -2,8 +2,8 @@
  * @Description:
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
- * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 20:34:55
+ * @LastEditors  : lys1626/刘芹芹
+ * @LastEditTime : 2019-12-18 10:34:06
  -->
 <template>
   <div class="app-wrap">
@@ -260,74 +260,46 @@ export default {
           this.$loading.show(this);
           this.$http.get('/view/zh/count').then(({ data }) => {
             if (data.status) {
-              this.tenantTotal = data.data.tenant; // 平台租户总量
-              this.hostTop5 = data.data.tenantServer; // 平台租户数据
-              this.bareMetal = data.data.bareMetal;
-              this.powerServer = data.data.powerServer;
-              this.server = data.data.server;
-              this.cpuUsedHistory = data.data.cpuUsedHistory;
-              this.storageUsedHistory = data.data.storageUsedHistory;
-              this.memoryUsedHistory = data.data.memoryUsedHistory;
-              this.cpuPercent =
-                data.data.cpuUsed / data.data.cpuTotal
-                  ? data.data.cpuUsed / data.data.cpuTotal
-                  : 0;
-              this.cpuUsed = data.data.cpuUsed;
-              this.cpuTotal = data.data.cpuTotal;
-              this.memoryPercent =
-                data.data.memoryUsed / data.data.memoryTotal
-                  ? data.data.memoryUsed / data.data.memoryTotal
-                  : 0;
-              this.memoryUsed = data.data.memoryUsed;
-              this.memoryTotal = data.data.memoryTotal;
-              this.storagePercent =
-                data.data.storageUsed / data.data.storageTotal
-                  ? data.data.storageUsed / data.data.storageTotal
-                  : 0;
-              this.storageUsed = data.data.storageUsed;
-              this.storageTotal = data.data.storageTotal;
-              this.historyDays = data.data.historyDays;
-              this.cpuUnit = data.data.cpuUnit;
-              this.storageUnit = data.data.storageUnit;
-              this.memoryUnit = data.data.memoryUnit;
+              this.setData(data.data);
             }
             this.$loading.hide(this);
           });
         } else {
           this.$loading.hide(this);
-          this.tenantTotal = resData.data.tenant; // 平台租户总量
-          this.hostTop5 = resData.data.tenantServer; // 平台租户数据
-          this.bareMetal = resData.data.bareMetal;
-          this.powerServer = resData.data.powerServer;
-          this.server = resData.data.server;
-          this.cpuUsedHistory = resData.data.cpuUsedHistory;
-          this.storageUsedHistory = resData.data.storageUsedHistory;
-          this.memoryUsedHistory = resData.data.memoryUsedHistory;
-          this.cpuPercent =
-            resData.data.cpuUsed / resData.data.cpuTotal
-              ? resData.data.cpuUsed / resData.data.cpuTotal
-              : 0;
-          this.cpuUsed = resData.data.cpuUsed;
-          this.cpuTotal = resData.data.cpuTotal;
-          this.memoryPercent =
-            resData.data.memoryUsed / resData.data.memoryTotal
-              ? resData.data.memoryUsed / resData.data.memoryTotal
-              : 0;
-          this.memoryUsed = resData.data.memoryUsed;
-          this.memoryTotal = resData.data.memoryTotal;
-          this.storagePercent =
-            resData.data.storageUsed / resData.data.storageTotal
-              ? resData.data.storageUsed / resData.data.storageTotal
-              : 0;
-          this.storageUsed = resData.data.storageUsed;
-          this.storageTotal = resData.data.storageTotal;
-          this.historyDays = resData.data.historyDays;
-          this.cpuUnit = resData.data.cpuUnit;
-          this.storageUnit = resData.data.storageUnit;
-          this.memoryUnit = resData.data.memoryUnit;
+          this.setData(resData.data);
         }
         this.$loading.hide(this);
       });
+    },
+    setData(data) {
+      this.tenantTotal = data.tenant; // 平台租户总量
+      this.hostTop5 = data.tenantServer; // 平台租户数据
+      this.bareMetal = data.bareMetal;
+      this.powerServer = data.powerServer;
+      this.server = data.server;
+      this.cpuUsedHistory = data.cpuUsedHistory;
+      this.storageUsedHistory = data.storageUsedHistory;
+      this.memoryUsedHistory = data.memoryUsedHistory;
+      this.cpuPercent =
+        data.cpuUsed / data.cpuTotal ? data.cpuUsed / data.cpuTotal : 0;
+      this.cpuUsed = data.cpuUsed;
+      this.cpuTotal = data.cpuTotal;
+      this.memoryPercent =
+        data.memoryUsed / data.memoryTotal
+          ? data.memoryUsed / data.memoryTotal
+          : 0;
+      this.memoryUsed = data.memoryUsed;
+      this.memoryTotal = data.memoryTotal;
+      this.storagePercent =
+        data.storageUsed / data.storageTotal
+          ? data.storageUsed / data.storageTotal
+          : 0;
+      this.storageUsed = data.storageUsed;
+      this.storageTotal = data.storageTotal;
+      this.historyDays = data.historyDays;
+      this.cpuUnit = data.cpuUnit;
+      this.storageUnit = data.storageUnit;
+      this.memoryUnit = data.memoryUnit;
     }
   },
   mounted() {

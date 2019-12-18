@@ -23,7 +23,7 @@ const webpackCommon = {
   output: {
     filename: "js/[name].js", // 出口文件地址的目录
     path: path.resolve(__dirname, "../dist"), // 出口路径
-    chunkFilename: "js/[name].js", // 分成块的打包地址会打包在static/js/文件下面
+    chunkFilename: "js/[name].js", // 分成块的打包地址会打包在js/文件下面
     publicPath: process.env.NODE_ENV ? "/" : "./" // 公共路径
   },
   // 4.0新增的配置项
@@ -134,8 +134,28 @@ const webpackCommon = {
           }
         ]
       },
+      // {
+      //   test: /\.(woff|eot|ttf|otf|woff2|svg)(\?.*)?$/, // 同上
+      //   loader: "url-loader",
+      //   options: {
+      //     limit: 1024,
+      //     name: "fonts/[name].[hash:7].[ext]",
+      //     publicPath: "../"
+      //   }
+      // }
       {
         test: /\.(woff|eot|ttf|otf|woff2|svg)(\?.*)?$/, // 同上
+        include: /node_modules/,
+        loader: "url-loader",
+        options: {
+          limit: 1024,
+          name: "fonts/[name].[hash:7].[ext]",
+          publicPath: "../../"
+        }
+      },
+      {
+        test: /\.(woff|eot|ttf|otf|woff2|svg)(\?.*)?$/, // 同上
+        exclude: /node_modules/,
         loader: "url-loader",
         options: {
           limit: 1024,
