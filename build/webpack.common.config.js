@@ -12,7 +12,7 @@ const happyThreadPool = HappyPack.ThreadPool({
 // 抽离css的插件 npm install mini-css-extract-plugin -D 来安装
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); // 压缩js
 const webpackCommon = {
   context: path.resolve(__dirname, "../"),
   entry: {
