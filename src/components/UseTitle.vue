@@ -9,7 +9,7 @@
   <div class="title-wrapper" :style="{height: height + 'px'}">
     <img :src="titleImg" alt="标题图片" :style="{height: height + 'px',width: height + 'px'}">
     <div class="title-text"> {{title}}</div>
-    <div class="unit-text">单位：{{unit}}</div>
+    <div class="unit-text">{{unit? "单位：" + unit: unit }}</div>
   </div>
 </template> 
 
