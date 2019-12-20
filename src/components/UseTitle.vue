@@ -2,14 +2,14 @@
  * @Description: 
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 10:33:29
- * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 17:52:37
+ * @LastEditors  : lys1626/刘芹芹
+ * @LastEditTime : 2019-12-20 09:36:32
  -->
 <template>
   <div class="title-wrapper" :style="{height: height + 'px'}">
     <img :src="titleImg" alt="标题图片" :style="{height: height + 'px',width: height + 'px'}">
     <div class="title-text"> {{title}}</div>
-    <div class="unit-text">{{unit}}</div>
+    <div class="unit-text">单位：{{unit}}</div>
   </div>
 </template> 
 

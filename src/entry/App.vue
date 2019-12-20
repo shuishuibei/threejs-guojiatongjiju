@@ -93,7 +93,7 @@
         <div class="content-right">
           <!-- cpu 历史使用量 -->
           <div class="cpu-use use-count">
-            <use-title title="CPU历史使用量" height="21"></use-title>
+            <use-title title="CPU历史使用量" :unit="cpuUnit" height="21"></use-title>
             <div class="history-con">
               <usage-line-chart
                 flag-id="cpu-use-con"
@@ -105,7 +105,7 @@
           </div>
           <!-- 内存历史使用量 -->
           <div class="memory-use use-count">
-            <use-title title="内存历史使用量" height="21"></use-title>
+            <use-title title="内存历史使用量" :unit="memoryUnit" height="21"></use-title>
             <div class="history-con">
               <usage-line-chart
                 line-color="#fdd912"
@@ -118,7 +118,7 @@
           </div>
           <!-- 存储历史使用量 -->
           <div class="storage-use use-count">
-            <use-title title="存储历史使用量" height="21"></use-title>
+            <use-title title="存储历史使用量" :unit="storageUnit" height="21"></use-title>
             <div class="history-con">
               <usage-line-chart
                 line-color="#02f235"
@@ -146,8 +146,8 @@
             <circle-process
               :unit="memoryUnit"
               text-color="#fdd912"
-              :all-have="memoryUsed"
-              :already-have="memoryTotal"
+              :all-have="memoryTotal"
+              :already-have="memoryUsed"
               :percent="memoryPercent"
               hard-name="内存"></circle-process>
           </div>
@@ -157,8 +157,8 @@
             <circle-process
               :unit="storageUnit"
               text-color="#02f235"
-              :all-have="storageUsed"
-              :already-have="storageTotal"
+              :all-have="storageTotal"
+              :already-have="storageUsed"
               :percent="storagePercent"
               hard-name="存储"></circle-process>
           </div>

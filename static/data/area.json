@@ -1,5 +1,5 @@
 {
-  "isActive": true,
+  "isActive": false,
   "data": {
     "server": 6,
     "bareMetal": 0,
