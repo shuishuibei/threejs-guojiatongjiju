@@ -132,7 +132,7 @@
       </div>
       <div class="app-bottom-content">
         <div class="circle-con" style="position: relative;padding-top: 3.5%;">
-          <div style="position: absolute;left: 0; width: 21.4%">
+          <div style="position: absolute;left: 0; width: 25%">
             <circle-process
               :unit="cpuUnit"
               text-color="#05c9fb"
@@ -142,7 +142,7 @@
               hard-name="CPU"></circle-process>
           </div>
           <div class="split-line-left"></div>
-          <div style="width: 21.4%">
+          <div style="width: 28%">
             <circle-process
               :unit="memoryUnit"
               text-color="#fdd912"
@@ -153,7 +153,7 @@
           </div>
           <div class="split-line-right">
           </div>
-          <div style="position: absolute;right: -5px;width: 21.4%">
+          <div style="position: absolute;right: -5px;width: 28%">
             <circle-process
               :unit="storageUnit"
               text-color="#02f235"
@@ -668,7 +668,7 @@ export default {
           background: #0e5d94;
           position: absolute;
           margin-top: 2%;
-          left: 31%;
+          left: 32%;
         }
 
         .split-line-right {
@@ -677,7 +677,7 @@ export default {
           background: #0e5d94;
           position: absolute;
           margin-top: 2%;
-          right: 29%;
+          right: 31%;
         }
       }
     }

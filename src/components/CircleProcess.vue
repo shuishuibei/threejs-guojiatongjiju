@@ -2,15 +2,15 @@
  * @Description:
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
- * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 20:18:50
+ * @LastEditors  : lys1626/刘芹芹
+ * @LastEditTime : 2019-12-24 09:57:34
  -->
 <template>
   <div class="hard-ware-con" style="width:100%">
     <div class="circle-container">
       <i-circle
         :size="size"
-        :percent="percent"
+        :percent="percent*100"
         trail-color="#023d7f"
         :trail-width="8.5"
         :stroke-color="color"
@@ -108,7 +108,7 @@ export default {
      */
     hardSty() {
       return {
-        width: `${200 - this.size}px`
+        width: `170px`
       };
     },
     /**

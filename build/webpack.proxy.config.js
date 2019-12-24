@@ -28,7 +28,7 @@ const devWebpackConfig = merge(webpackConfig, {
     }),
     new webpack.DefinePlugin({
       // 跨域,一定要用JSON.stringify方法来转成字符串 否则会报错
-      SERVICE_URL: JSON.stringify("http://localhost:9000/")
+      SERVICE_URL: JSON.stringify("http://192.168.100.47:9000/")
     })
   ]
 });
