@@ -3,16 +3,16 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors  : lys1626/刘芹芹
- * @LastEditTime : 2019-12-18 10:34:06
+ * @LastEditTime : 2019-12-25 17:08:36
  -->
 <template>
   <div class="app-wrap">
     <div class="app-content">
       <header>
-        <!-- <img src="../assets/imgs/logo-img.png" width="42" height="42" style="margin-right: 14px" alt="标题img"> -->
-        <img src="../assets/imgs/title-img.png" width="20%" height="66%" alt="标题img">
+        <i class="iconfont  icon--hc"></i>
+        <h1>XX数据中心云平台</h1>
       </header>
-      <div class="app-middle-content">
+      <div class=" app-middle-content">
         <div class="content-left">
           <!-- 已用资源统计 -->
           <div class="already-use use-count-left">
@@ -184,132 +184,55 @@ export default {
   },
   data() {
     return {
-      cpuUsedHistory: [1, 2, 3, 4, 5, 6], // cpu历史使用量
-      historyDays: ['12/12', '12/13', '12/14', '12/15', '12/16', '12/17'],
-      storageUsedHistory: [1, 2, 3, 4, 5, 6], // 存储历史使用量
-      memoryUsedHistory: [1, 2, 3, 4, 5, 6], // 内存历史使用量
-      tenantTotal: 800,
+      cpuUsedHistory: [50, 10, 60, 90, 25, 50], // cpu历史使用量
+      historyDays: ['11/13', '11/14', '11/15', '11/16', '11/17', '11/18'],
+      storageUsedHistory: [50, 82, 25, 60, 18, 48], // 存储历史使用量
+      memoryUsedHistory: [5, 50, 40, 27, 75, 25], // 内存历史使用量
+      tenantTotal: 852,
       // 各租户拥有虚机数量Top5
       hostTop5: [
         {
-          title: '1',
-          value: 5,
-          width: '100%'
+          width: '100%',
+          title: '租户名称1',
+          value: 240
         },
         {
-          title: '1',
-          value: 5,
-          width: '100%'
+          width: '80%',
+          title: '租户名称2',
+          value: 201
         },
         {
-          title: '1',
-          value: 5,
-          width: '100%'
+          width: '60%',
+          title: '租户名称3',
+          value: 146
         },
         {
-          title: '1',
-          value: 5,
-          width: '100%'
+          width: '50%',
+          title: '租户名称4',
+          value: 128
         },
         {
-          title: '1',
-          value: 5,
-          width: '100%'
+          width: '30%',
+          title: '租户名称5',
+          value: 64
         }
       ],
-      bareMetal: 0, // 裸金属数量
-      powerServer: 0, // power小机数量
-      server: 0, // 主机数量
-      cpuPercent: 0, // cpu百分比
-      memoryPercent: 0, // memory百分比
-      storagePercent: 0, // storage百分比
-      cpuUsed: 0, // cpu已使用量
-      cpuTotal: 0, // cpu总量
-      memoryUsed: 0,
-      memoryTotal: 0,
-      storageUsed: 0,
-      storageTotal: 0,
+      bareMetal: 178, // 裸金属数量
+      powerServer: 88, // power小机数量
+      server: 298, // 主机数量
+      cpuPercent: 0.25, // cpu百分比
+      memoryPercent: 0.1, // memory百分比
+      storagePercent: 0.5, // storage百分比
+      cpuUsed: 80, // cpu已使用量
+      cpuTotal: 320, // cpu总量
+      memoryUsed: 12,
+      memoryTotal: 120,
+      storageUsed: 40,
+      storageTotal: 80,
       cpuUnit: '核',
       storageUnit: 'TB',
       memoryUnit: 'GB'
     };
-  },
-  methods: {
-    /**
-     * @function: init
-     * @description: 获取本地数据
-     * @param {type}
-     * @returns: {void}
-     */
-    init() {
-      return new Promise((resolve, reject) => {
-        if (this.isDev) {
-          let dataD = require('../../static/data/area.json');
-          resolve(dataD);
-        } else {
-          this.$http.get('./static/data/area.json').then(response => {
-            resolve(response.data);
-          });
-        }
-      });
-    },
-    getData() {
-      this.$loading.show(this);
-      this.init().then(resData => {
-        if (!resData.isActive) {
-          this.$loading.show(this);
-          this.$http.get('/view/zh/count').then(({ data }) => {
-            if (data.status) {
-              this.setData(data.data);
-            }
-            this.$loading.hide(this);
-          });
-        } else {
-          this.$loading.hide(this);
-          this.setData(resData.data);
-        }
-        this.$loading.hide(this);
-      });
-    },
-    setData(data) {
-      this.tenantTotal = data.tenant; // 平台租户总量
-      this.hostTop5 = data.tenantServer; // 平台租户数据
-      this.bareMetal = data.bareMetal;
-      this.powerServer = data.powerServer;
-      this.server = data.server;
-      this.cpuUsedHistory = data.cpuUsedHistory;
-      this.storageUsedHistory = data.storageUsedHistory;
-      this.memoryUsedHistory = data.memoryUsedHistory;
-      this.cpuPercent =
-        data.cpuUsed / data.cpuTotal ? data.cpuUsed / data.cpuTotal : 0;
-      this.cpuUsed = data.cpuUsed;
-      this.cpuTotal = data.cpuTotal;
-      this.memoryPercent =
-        data.memoryUsed / data.memoryTotal
-          ? data.memoryUsed / data.memoryTotal
-          : 0;
-      this.memoryUsed = data.memoryUsed;
-      this.memoryTotal = data.memoryTotal;
-      this.storagePercent =
-        data.storageUsed / data.storageTotal
-          ? data.storageUsed / data.storageTotal
-          : 0;
-      this.storageUsed = data.storageUsed;
-      this.storageTotal = data.storageTotal;
-      this.historyDays = data.historyDays;
-      this.cpuUnit = data.cpuUnit;
-      this.storageUnit = data.storageUnit;
-      this.memoryUnit = data.memoryUnit;
-    }
-  },
-  mounted() {
-    /**
-     * @function: getData
-     * @description: 获取大屏数据
-     * @param {type}
-     * @returns: {void}
-     */
-    this.getData();
   },
   computed: {
     /**
@@ -349,14 +272,6 @@ export default {
             };
         }
       };
-    },
-    /**
-     * @function isDev
-     * @description  判断是否是开发环境下
-     * @returns {String}
-     */
-    isDev() {
-      return process.env.NODE_ENV === 'development' ? true : false;
     }
   }
 };
@@ -419,6 +334,24 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: SimHei;
+      // color: #019cec;
+      h1 {
+        font-size: 1.4rem;
+        background: linear-gradient(to bottom, #f1f7fa, #6dd5fc, #4c7edd);
+        background-clip: text;
+        color: transparent;
+        vertical-align: middle;
+      }
+
+      .iconfont {
+        font-size: 4.5rem;
+        margin-right: 14px;
+        background: linear-gradient(to bottom, #faf1f6, #6dd5fc, #4c7edd);
+        background-clip: text;
+        color: transparent;
+        vertical-align: middle;
+      }
     }
     .app-middle-content {
       width: 100%;
@@ -448,17 +381,9 @@ export default {
               text-align: center;
               display: flex;
               color: #019cec;
-              // align-items: center;
               padding-top: 30%;
-              // position: absolute;
-              // width: 80%;
-              // left: 100%;
-              // top: 30%;
-              // color: #019cec;
-              // overflow: hidden;
             }
             .con-flag {
-              // width: 70px;
               width: 25%;
               height: 100%;
               flex-direction: column;

@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-05 11:50:21
- * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 17:52:46
+ * @LastEditors  : lys1626/刘芹芹
+ * @LastEditTime : 2019-12-25 15:57:47
  -->
 <template>
   <div :id="flagId" style="width:100%;height:100%"></div>
@@ -27,7 +27,7 @@ export default {
     rowData: {
       type: [Object, Array],
       required: true,
-      default: ['12/12', '12/13', '12/14', '12/15', '12/16', '12/17']
+      default: []
     },
     // 父节点id
     flagId: {
@@ -279,18 +279,11 @@ export default {
     }
   },
   mounted() {
+    this.init();
     on(window, 'resize', this.handleResize);
   },
   beforeDestroy() {
     off(window, 'resize', this.handleResize);
-  },
-  watch: {
-    rowData(newVal) {
-      if (newVal) {
-        this.init();
-      }
-    },
-    deep: true
   }
 };
 </script>

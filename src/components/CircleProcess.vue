@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-06 15:01:28
  * @LastEditors  : lys1626/刘芹芹
- * @LastEditTime : 2019-12-24 09:57:34
+ * @LastEditTime : 2019-12-25 16:10:40
  -->
 <template>
   <div class="hard-ware-con" style="width:100%">
@@ -98,7 +98,7 @@ export default {
      * @returns: {String} percent
      */
     showPercent() {
-      return (this.percent * 100).toFixed(1);
+      return (this.percent * 100).toFixed(0);
     },
     /**
      * @function: hardSty

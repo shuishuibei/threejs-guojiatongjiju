@@ -2,8 +2,8 @@
  * @Description:
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
- * @LastEditors: lys1626/刘芹芹
- * @LastEditTime: 2019-12-17 17:41:29
+ * @LastEditors  : lys1626/刘芹芹
+ * @LastEditTime : 2019-12-25 16:47:57
  */
 import Vue from "vue";
 import axios from "axios";
@@ -11,6 +11,7 @@ import Echarts from "echarts"; //引入echarts
 import VueRouter from "vue-router";
 import Iview from "iview";
 import Loading from "@/components/h3c-loading/H3cLoading.vue";
+import "@/assets/font/iconfont.css";
 
 import "@/assets/css/reset.css";
 import "iview/dist/styles/iview.css";
