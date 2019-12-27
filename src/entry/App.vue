@@ -3,7 +3,7 @@
  * @Author: lys1626/刘芹芹
  * @Date: 2019-12-04 10:30:59
  * @LastEditors  : lys1626/刘芹芹
- * @LastEditTime : 2019-12-25 17:08:36
+ * @LastEditTime : 2019-12-27 14:12:03
  -->
 <template>
   <div class="app-wrap">
@@ -31,10 +31,10 @@
               <div class="power-con con-flag">
                 <div class="num-flag" style="color:#fdd912">{{powerServer}}</div>
                 <div class="img-flag">
-                  <img src="../assets/imgs/power-img.png" alt="power小机数量" width="65" height="65">
+                  <img src="../assets/imgs/power-img.png" alt="power机虚机数量" width="65" height="65">
                 </div>
                 <div class="info-flag" style="width:150%">
-                  power小机数量
+                  power机虚机数量
                 </div>
               </div>
               <div class="contact-lines">................</div>
@@ -218,7 +218,7 @@ export default {
         }
       ],
       bareMetal: 178, // 裸金属数量
-      powerServer: 88, // power小机数量
+      powerServer: 88, // power机虚机数量
       server: 298, // 主机数量
       cpuPercent: 0.25, // cpu百分比
       memoryPercent: 0.1, // memory百分比
