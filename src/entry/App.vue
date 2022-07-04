@@ -86,7 +86,7 @@
         </div>
         <div class="content-middle">
           <use-title title="云计算整体架构" height="21" unit=""></use-title>
-          <div class="content-middle-con">
+          <div class="content-middle-con" id="content-middle-con">
             <topo-chart></topo-chart>
           </div>
         </div>

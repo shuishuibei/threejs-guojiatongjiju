@@ -7,7 +7,7 @@
  -->
 <template>
   <div class="topo-chart-container">
-    <div id="topo-chart">
+    <div id="topo-chart" ref="topoChart">
     </div>
     <div class="topo-description">
       <div class="topo-type">
@@ -28,6 +28,9 @@
 
 <script>
 import _ from 'lodash';
+import { scene } from '@/assets/js/scene/index.js'//Three.js三维场景
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { on, off } from '@/assets/js/dom.js';
 
 export default {
@@ -434,23 +437,62 @@ export default {
      * @returns: {void}
      */
     initChart() {
+      this.topoChartNode = this.$echarts.init(
+        document.getElementById('topo-chart')
+      );
       let data = this.initData();
       this.topoChartNode.setOption(data);
       this.addTitleLocation();
     },
+    initThree(id) {
+      let width = document.getElementById(id).clientWidth;
+      let height = document.getElementById(id).clientHeight; //窗口文档显示区的高度
+      /**
+      * 透视投影相机设置
+      */
+      // 30:视场角度, width / height:Canvas画布宽高比, 1:近裁截面, 3000：远裁截面
+      let camera = new THREE.PerspectiveCamera(30, width / height, 1, 3000);
+      camera.position.set(292, 223, 185);//相机在Three.js三维坐标系中的位置
+      camera.lookAt(0, 0, 0);//相机指向Three.js坐标系原点
+      /**
+       * 创建渲染器对象
+       */
+      let renderer = new THREE.WebGLRenderer({
+          antialias: true, //开启锯齿
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);//设置设备像素比率,防止Canvas画布输出模糊。
+      renderer.setSize(width, height); //设置渲染区域尺寸
+      renderer.setClearColor(0xffffff, 0); //设置背景颜色
+     
+      let controls = new OrbitControls(camera, renderer.domElement);
+      on(window, 'resize', function() {
+        let width = document.getElementById('topo-chart').clientWidth;
+        let height = document.getElementById('topo-chart').clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        // 渲染器执行render方法的时候会读取相机对象的投影矩阵属性projectionMatrix
+        // 但是不会每渲染一帧，就通过相机的属性计算投影矩阵(节约计算资源)
+        // 如果相机的一些属性发生了变化，需要执行updateProjectionMatrix ()方法更新相机的投影矩阵
+        camera.updateProjectionMatrix();
+      });
+      function render() {
+        renderer.render(scene, camera); //执行渲染操作
+        requestAnimationFrame(render); //请求再次执行渲染函数render，渲染下一帧
+      }
+      render();
+      document.getElementById(id).appendChild(renderer.domElement);
+    },
     handleResize() {
       this.topoChartNode.resize();
-    }
+    },
   },
   mounted() {
-    this.topoChartNode = this.$echarts.init(
-      document.getElementById('topo-chart')
-    );
-    this.initChart();
-    on(window, 'resize', this.handleResize);
+    this.initThree('topo-chart');
+    // this.initChart();
+    // on(window, 'resize', this.handleResize);
   },
   beforeDestroy() {
-    off(window, 'resize', this.handleResize);
+    // off(window, 'resize', this.handleResize);
   }
 };
 </script>

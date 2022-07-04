@@ -12,17 +12,18 @@ import VueRouter from "vue-router";
 import Iview from "iview";
 import Loading from "@/components/h3c-loading/H3cLoading.vue";
 import "@/assets/font/iconfont.css";
-
+import * as Three from 'three';
 import "@/assets/css/reset.css";
 import "iview/dist/styles/iview.css";
 import routes from "@/router/index.js";
 
+window.THREE = Three;
 Vue.use(Iview);
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes: [routes]
 });
-
+Vue.prototype.$THREE = Three;
 Vue.prototype.$echarts = Echarts;
 /* eslint-disable */
 let axiosIns = axios.create(
