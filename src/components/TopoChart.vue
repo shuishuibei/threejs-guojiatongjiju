@@ -452,7 +452,7 @@ export default {
       */
       // 30:视场角度, width / height:Canvas画布宽高比, 1:近裁截面, 3000：远裁截面
       let camera = new THREE.PerspectiveCamera(30, width / height, 1, 3000);
-      camera.position.set(292, 223, 185);//相机在Three.js三维坐标系中的位置
+      camera.position.set(-129, 211, 408);//相机在Three.js三维坐标系中的位置
       camera.lookAt(0, 0, 0);//相机指向Three.js坐标系原点
       /**
        * 创建渲染器对象
@@ -476,6 +476,7 @@ export default {
         camera.updateProjectionMatrix();
       });
       function render() {
+        console.log(camera.position)
         renderer.render(scene, camera); //执行渲染操作
         requestAnimationFrame(render); //请求再次执行渲染函数render，渲染下一帧
       }

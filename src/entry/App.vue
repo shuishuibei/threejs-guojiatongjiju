@@ -548,12 +548,11 @@ export default {
       .content-middle {
         width: 58%;
         padding: 25px 40px;
-
         .content-middle-con {
           width: 100%;
           height: calc(~'100% - 21px');
-          background: url('../assets/imgs/topology-img.png') center no-repeat;
-          background-size: 99% 100%;
+          // background: url('../assets/imgs/topology-img.png') center no-repeat;
+          // background-size: 99% 100%;
         }
       }
       .content-right {
