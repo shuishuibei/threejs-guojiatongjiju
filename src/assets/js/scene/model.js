@@ -107,25 +107,65 @@ function plane() {
     model.add(mesh);
     mesh.rotateX(-Math.PI / 2);
 }
-function getCylinder(position) {
-  let geometry = new THREE.CylinderGeometry(5, 5, 20, 32);
+// position: 圆柱体位置
+// radius: 圆柱体半径
+// height: 圆柱体高度
+// color: 圆柱体颜色
+// topColor: 圆柱体顶部颜色
+function getCylinder(position, radius, height, color, topColor) {
+  let geometry = new THREE.CylinderGeometry(radius, radius, height, 32);
   let material = new THREE.MeshLambertMaterial({
-    color: 'red',
-    // transparent: true,
-    // opacity: 0.9,
-    // side: THREE.DoubleSide,
+    color,
+    map: new THREE.TextureLoader().load('static/imgs/渐变.png'),
+    transparent: true,
+    opacity: 0.5,
+    side: THREE.DoubleSide,
+    depthTest: false,
   });
   let cylinder = new THREE.Mesh(geometry, material);
   let {x, y, z} = position;
   cylinder.position.set(x, y, z);
   model.add(cylinder);
-}
-getCylinder({
-  x: -100,
-  y: 0,
-  z: 100,
-});
+  // 圆柱体上方的圆
+  getCircle({
+    x,
+    z,
+    y: y + height/2
+  }, topColor, radius);
+  // 圆柱体下方的圆
+  getCircle({
+    x,
+    z,
+    y: y - height/2
+  }, color, radius);
 
+  let light = new THREE.PointLight(color, height/2, 12);
+  light.position.set(x, y, z);
+  model.add(light);
+}
+// 画圆形
+function getCircle(position, color, radius) {
+  let circle = new THREE.CircleGeometry(radius, 100);
+  let circleMaterial = new THREE.MeshLambertMaterial({
+    color,
+    side: THREE.DoubleSide,
+  });
+  let circleMesh = new THREE.Mesh(circle, circleMaterial);
+  circleMesh.rotateX(90 * Math.PI / 180);
+  let {x, y, z} = position;
+  circleMesh.position.set(x, y, z);
+  model.add(circleMesh);
+}
+
+function getCurve(position) {
+  let {x,y,z} = position;
+  let curve = new THREE.EllipseCurve(x, y, z)
+}
+
+getCylinder({ x: -100, y: 0, z: 100 }, 5, 20, 0x22CAFE, 0x1287FE);
+getCylinder({ x: -92, y: 0, z: 108}, 1, 15, 0xF5AF03, 0xF5AF03);
+getCircle({ x: -100, y: -10, z: 100 }, 0x0079DB, 12);
+// getCurve({ x: -100, y: -10, z: 100 });
 
 export {
   model

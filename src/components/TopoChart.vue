@@ -476,7 +476,7 @@ export default {
         camera.updateProjectionMatrix();
       });
       function render() {
-        console.log(camera.position)
+        // console.log(camera.position)
         renderer.render(scene, camera); //执行渲染操作
         requestAnimationFrame(render); //请求再次执行渲染函数render，渲染下一帧
       }
