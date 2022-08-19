@@ -2,7 +2,6 @@
 import * as THREE from 'three';
 import { Vector3 } from 'three';
 import { tag } from './messageTag';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 
 let model = new THREE.Group(); //声明一个组对象
@@ -178,7 +177,7 @@ function getCurve(position, radius, color) {
   return ellipse;
 }
 
-function getLine(point1, point2, color) {
+function getLine(point1, point2) {
   let geometry = new THREE.BufferGeometry(); //创建一个缓冲类型几何体
   // 三维样条曲线
   let curve = new THREE.CatmullRomCurve3([ point1, point2 ]);
@@ -187,7 +186,7 @@ function getLine(point1, point2, color) {
   // setFromPoints方法从points中提取数据赋值给attributes.position
   geometry.setFromPoints(points);
   let material = new THREE.LineBasicMaterial({
-    color, //轨迹颜色
+    color: 0x1287FE, //轨迹颜色
     linewidth: 20, // 线宽设置无效，需要解决？
   });
   //线条模型对象
@@ -208,83 +207,6 @@ function getPoint(position, color, radius) {
   model.add(circle);
 }
 
-// 画花盆
-function getLathe() {
-  let points1 = [],
-      points2 = [];
-  let height = 8;
-  let count = 20;
-  for(let i = 10;i < count; i++) {
-    points1.push(
-      new THREE.Vector2(
-        i,
-        -(Math.sin(i * 0.2) + Math.cos(i * 0.3)) * height
-      )
-    )
-    points2.push(
-      new THREE.Vector2(
-        i,
-        (Math.sin(i * 0.2) + Math.cos(i * 0.3)) * height
-      )
-    )
-  }
-  let shape1 = new THREE.Shape(),
-      shape2 = new THREE.Shape();
-  shape1.splineThru(points1);
-  shape2.splineThru(points2);
-  let splinePoints1 = shape1.getPoints(500);
-  let splinePoints2 = shape2.getPoints(500);
-  let geometry1 = new THREE.LatheGeometry(splinePoints1, 30);
-  let geometry2 = new THREE.LatheGeometry(splinePoints2, 30);
-  let material = new THREE.MeshPhongMaterial({
-    color: 0x00EF65,
-    side: THREE.DoubleSide,
-  })
-  let mesh1 = new THREE.Mesh(geometry1, material);
-  let mesh2 = new THREE.Mesh(geometry2, material);
-  mesh1.translateY(3.5);
-  mesh1.translateX(-10);
-  mesh2.translateY(0);
-  mesh2.translateX(-10);
-  model.add(mesh1);
-  model.add(mesh2);
-}
-
-// 画盒子
-function getBox(size, color, position) {
-  let { x, y, z } = size;
-  let geometry = new THREE.BoxGeometry(x, y, z);
-  let material = new THREE.MeshLambertMaterial({
-    map: new THREE.TextureLoader().load('static/imgs/渐变.png'),
-    color,
-    transparent: true,
-    side: THREE.DoubleSide,
-    depthTest: false,
-  })
-  let mesh = new THREE.Mesh(geometry, material);
-  let { px, py, pz } = position;
-  mesh.position.set(px,py,pz);
-  mesh.rotateX(90 * Math.PI / 180);
-  model.add(mesh);
-}
-
-// 获得光幕
-function getGuangMu(width, height, position) {
-  let geometry = new THREE.PlaneGeometry(width, height);
-  let material = new THREE.MeshLambertMaterial({
-    color: 0xF5AF03, //颜色
-    map: new THREE.TextureLoader().load('static/imgs/渐变.png'),
-    side:THREE.DoubleSide,//两面可见
-    transparent: true, //需要开启透明度计算，否则着色器透明度设置无效
-    opacity: 0.5,//整体改变透明度
-    depthTest: false,
-  })
-  let mesh = new THREE.Mesh(geometry, material);
-  let {x,y,z} = position;
-  mesh.position.set(x,y,z);
-  model.add(mesh);
-}
-
 // 组件1: 圆柱体组件，用来表示资源池资源
 function getComponent1(position) {
   let { x, y, z } = position;
@@ -297,55 +219,52 @@ function getComponent1(position) {
 for(let i = 0; i < 6; i++) {
   let z = 100 - i * 40;
   getComponent1({ x: -100, y: 0, z: z });
-  getLine(new THREE.Vector3(-60, -10, z), new THREE.Vector3(-100, -10, z), 0x1287FE);
+  getLine(new THREE.Vector3(-60, -10, z), new THREE.Vector3(-100, -10, z));
   getPoint({ x: -60, y: -10, z: z }, 0x20E763, 1.5);
 }
 
-getLine(new THREE.Vector3(-60, -10, 100), new THREE.Vector3(-60, -10, -100), 0x1287FE);
+getLine(new THREE.Vector3(-60, -10, 100), new THREE.Vector3(-60, -10, -100));
+
 let messageTag = tag('虚拟化资源池');
 messageTag.position.set(-60, -10, 140);
 model.add(messageTag);
 
-// getLathe();
-// getBox({x: 34, y: 34, z: 10}, 0xccff22, {px: 46, py: 0, pz: 0});
-// getBox({x: 34, y: 34, z: 10}, 0xccff22, {px: 46, py: 12, pz: 0});
-// getGuangMu(40, 64, {x: 46, y: 28, z: -34});
-// getGuangMu(40, 64, {x: 46, y: 28, z: 34});
-// getLine(new THREE.Vector3(80, 0, -34), new THREE.Vector3(10, 0, -34), 0xccff22);
-// getLine(new THREE.Vector3(80, 0, -34), new THREE.Vector3(80, 0, 34), 0xccff22);
-// getLine(new THREE.Vector3(10, 0, -34), new THREE.Vector3(10, 0, 34), 0xccff22);
-// getLine(new THREE.Vector3(80, 0, 34), new THREE.Vector3(10, 0, 34), 0xccff22);
+function getLathe() {
+  let points = [];
+  let height = 8;
+  let count = 20;
+  for(let i = 10;i < count; i++) {
+    points.push(
+      new THREE.Vector2(
+        i,
+        -(Math.sin(i * 0.2) + Math.cos(i * 0.3)) * height
+      )
+    )
+  }
 
-let loader = new OBJLoader();
+  // for(let i = 10;i < count; i++) {
+  //   points.push(
+  //     new THREE.Vector2(
+  //       i,
+  //       (Math.sin(i * 0.2) + Math.cos(i * 0.3)) * height
+  //     )
+  //   )
+  // }
 
-// url: 加载obj模型路径 name: 模型名称
-function loadObj(url, name){
-  loader.load(
-    url,
-    function(obj) {
-      obj.name = name;
-      obj.scale.set(0.4,0.4,0.4);
-      obj.rotateY(-90 * Math.PI / 180);
-      obj.position.set(0, 8, 0);
-      model.add(obj);
-    },
-    function(xhr) {
-      console.log(( xhr.loaded / xhr.total * 100 ) + '% loaded')
-    },
-    function(error) {
-      console.log('模型加载失败')
-    }
-  )
+  let shape = new THREE.Shape();
+  shape.splineThru(points);
+  let splinePoints = shape.getPoints(500);
+  let geometry = new THREE.LatheGeometry(splinePoints, 30);
+  let material = new THREE.MeshPhongMaterial({
+    color: 0x00EF65,
+    side: THREE.DoubleSide,
+  })
+  let mesh = new THREE.Mesh(geometry, material);
+  model.add(mesh);
 }
 
-loadObj('static/model/Cloud.obj', 'Cloud');
-loadObj('static/model/火焰.obj', 'Fire');
-loadObj('static/model/机子.obj', 'Machine');
-loadObj('static/model/左边.obj', 'Left');
-loadObj('static/model/后面的云.obj', 'BackCloud');
 
-
-
+getLathe();
 
 export {
   model
